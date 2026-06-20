@@ -1,0 +1,18 @@
+.save {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 32px;
+  height: 32px;
+  border: none;
+  background: transparent;
+  color: var(--color-green);
+  margin-left: auto;
+  padding: 0;
+}
+
+.save:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}

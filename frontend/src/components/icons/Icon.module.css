@@ -1,0 +1,10 @@
+.icon {
+  display: block;
+  flex-shrink: 0;
+  fill: currentColor;
+}
+
+.logo {
+  display: block;
+  flex-shrink: 0;
+}

@@ -1,0 +1,9 @@
+.chartWrap {
+  margin-top: 8px;
+}
+
+.status {
+  text-align: center;
+  color: var(--color-grey);
+  padding: 48px 16px;
+}

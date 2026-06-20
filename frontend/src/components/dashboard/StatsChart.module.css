@@ -1,0 +1,16 @@
+.chartCard {
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  background: var(--color-green-10);
+  padding: 16px;
+  min-height: 320px;
+}
+
+.compact {
+  min-height: 280px;
+}
+
+.canvasWrap {
+  height: 100%;
+  min-height: 260px;
+}

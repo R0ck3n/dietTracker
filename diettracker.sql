@@ -56,6 +56,8 @@ CREATE TABLE FoodEntry (
 
     CaloriesPer100g REAL NOT NULL,
 
+    Unit TEXT NOT NULL DEFAULT 'g' CHECK (Unit IN ('g', 'ml')),
+
     CreatedAt DATETIME DEFAULT CURRENT_TIMESTAMP,
 
     FOREIGN KEY (JournalID)

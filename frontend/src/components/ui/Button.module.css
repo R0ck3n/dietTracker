@@ -1,0 +1,64 @@
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  border: none;
+  border-radius: var(--radius-lg);
+  padding: 12px 16px;
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--color-white);
+  transition: opacity 0.15s ease;
+}
+
+.button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.button:not(:disabled):hover {
+  opacity: 0.92;
+}
+
+.fullWidth {
+  width: 100%;
+}
+
+.primary {
+  background: var(--color-green);
+  color: var(--color-black);
+  border-radius: var(--radius-md);
+}
+
+.food {
+  background: var(--color-fire);
+}
+
+.sport {
+  background: var(--color-energy);
+}
+
+.ghost {
+  background: var(--color-white-5);
+  border: 1px solid var(--color-grey);
+  color: var(--color-white);
+  border-radius: var(--radius-sm);
+  padding: 4px;
+  min-width: 25px;
+  min-height: 25px;
+}
+
+.danger {
+  background: var(--color-white-5);
+  border: 1px solid var(--color-grey);
+  color: var(--color-white);
+  border-radius: var(--radius-sm);
+  padding: 4px;
+  min-width: 25px;
+  min-height: 25px;
+}
+
+.icon {
+  display: inline-flex;
+}

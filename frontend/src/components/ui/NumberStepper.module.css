@@ -1,0 +1,69 @@
+.stepper {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.timeRow,
+.weightRow {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.valueInput {
+  min-width: 40px;
+  border: none;
+  background: transparent;
+  color: inherit;
+  text-align: center;
+  font: inherit;
+  font-size: 32px;
+  font-weight: 400;
+  padding: 0;
+  outline: none;
+  border-bottom: 1px solid transparent;
+}
+
+.valueInput:focus {
+  border-bottom-color: currentColor;
+}
+
+.valueInput::-webkit-outer-spin-button,
+.valueInput::-webkit-inner-spin-button {
+  appearance: none;
+  margin: 0;
+}
+
+.suffix {
+  font-size: 32px;
+}
+
+.colon {
+  font-size: 32px;
+}
+
+.arrow {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  border: none;
+  background: transparent;
+  color: inherit;
+  padding: 0;
+}
+
+.green {
+  color: var(--color-green);
+}
+
+.hydration {
+  color: var(--color-hydratation);
+}
+
+.sleep {
+  color: var(--color-night);
+}

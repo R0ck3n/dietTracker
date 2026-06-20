@@ -1,0 +1,70 @@
+.sidebar {
+  display: none;
+}
+
+@media (min-width: 1024px) {
+  .sidebar {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    width: var(--sidebar-width);
+    min-height: calc(100vh - 16px);
+    margin: 8px;
+    padding: 16px;
+    border-radius: var(--radius-sm);
+    background: var(--color-bg-panel);
+    border: 1px solid var(--color-border);
+  }
+
+  .logoutBtn {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    border: none;
+    background: transparent;
+    color: var(--color-red);
+    font-size: 16px;
+    padding: 8px 0 16px;
+  }
+
+  .recap {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 14px 12px;
+    border-radius: var(--radius-sm);
+    background: var(--color-white-5);
+  }
+
+  .recapLabel {
+    margin: 0;
+    font-size: 14px;
+    color: var(--color-grey);
+  }
+
+  .recapValue {
+    margin: 4px 0 0;
+    font-size: 24px;
+    font-weight: 700;
+  }
+
+  .green {
+    color: var(--color-green);
+  }
+
+  .fire {
+    color: var(--color-fire);
+  }
+
+  .energy {
+    color: var(--color-energy);
+  }
+
+  .night {
+    color: var(--color-night);
+  }
+
+  .hydration {
+    color: var(--color-hydratation);
+  }
+}

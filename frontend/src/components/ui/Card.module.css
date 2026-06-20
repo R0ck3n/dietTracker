@@ -1,0 +1,101 @@
+.card {
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  padding: var(--card-padding);
+}
+
+.default,
+.notes,
+.summary {
+  background: var(--color-grey-10);
+}
+
+.food {
+  background: var(--color-fire-10);
+}
+
+.sport {
+  background: var(--color-energy-10);
+}
+
+.hydration {
+  background: var(--color-hydratation-10);
+}
+
+.sleep {
+  background: var(--color-night-10);
+}
+
+.weight {
+  background: var(--color-green-10);
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.headerTitle {
+  margin: 0;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.headerIcon {
+  display: inline-flex;
+  color: inherit;
+}
+
+.header_food {
+  color: var(--color-fire);
+}
+
+.header_sport {
+  color: var(--color-energy);
+}
+
+.header_hydration {
+  color: var(--color-hydratation);
+}
+
+.header_sleep {
+  color: var(--color-night);
+}
+
+.header_weight {
+  color: var(--color-green);
+}
+
+.header_notes,
+.header_summary,
+.header_default {
+  color: var(--color-white);
+}
+
+.body {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.footer {
+  margin-top: 12px;
+  padding: 10px 12px;
+  border-radius: var(--radius-sm);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 16px;
+}
+
+.food .footer {
+  background: var(--color-energy-10);
+  color: var(--color-energy);
+}
+
+.sport .footer {
+  background: var(--color-energy-10);
+  color: var(--color-energy);
+}
