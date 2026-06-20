@@ -364,4 +364,4 @@ Les spécifications détaillées sont disponibles dans :
 
 ## Statut du projet
 
-🚧 En cours de développement.
+🚧 En cours de test.
