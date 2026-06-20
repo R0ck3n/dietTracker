@@ -13,7 +13,7 @@
     --scrollbar-track: rgba(255, 255, 255, 0.04);
     --scrollbar-thumb: rgba(132, 139, 149, 0.45);
     --scrollbar-thumb-hover: rgba(132, 139, 149, 0.7);
-    max-height: calc(var(--desktop-list-row-height) * 4);
+    max-height: calc(var(--desktop-list-row-height) * 3);
     overflow-y: auto;
     overscroll-behavior: contain;
     scrollbar-gutter: stable;
