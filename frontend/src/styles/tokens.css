@@ -35,6 +35,7 @@
   --content-max: 1440px;
   --card-padding: 16px;
   --section-gap: 16px;
+  --font-size-mobile-max: 24px;
 }
 
 @media (min-width: 1024px) {

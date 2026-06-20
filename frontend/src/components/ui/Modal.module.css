@@ -93,3 +93,9 @@
   background: var(--color-green);
   color: var(--color-black);
 }
+
+@media (max-width: 1023px) {
+  .close {
+    font-size: var(--font-size-mobile-max);
+  }
+}

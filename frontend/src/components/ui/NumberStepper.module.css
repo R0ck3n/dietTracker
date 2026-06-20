@@ -67,3 +67,11 @@
 .sleep {
   color: var(--color-night);
 }
+
+@media (max-width: 1023px) {
+  .valueInput,
+  .suffix,
+  .colon {
+    font-size: var(--font-size-mobile-max);
+  }
+}

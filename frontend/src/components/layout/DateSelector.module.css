@@ -47,3 +47,9 @@
 .year {
   font-size: 32px;
 }
+
+@media (max-width: 1023px) {
+  .year {
+    font-size: var(--font-size-mobile-max);
+  }
+}
