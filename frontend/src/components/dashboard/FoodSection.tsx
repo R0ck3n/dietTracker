@@ -3,7 +3,7 @@ import { foodApi, journalApi } from '../../api';
 import type { FoodInput, JournalDay } from '../../api/types';
 import { FlameIcon, PlusIcon } from '../icons/Icons';
 import { Button } from '../ui/Button';
-import { Card, CardBody, CardFooter, CardHeader } from '../ui/Card';
+import { Card, CardBody, CardFooter, CardHeader, type CardLayout } from '../ui/Card';
 import { ListRow } from '../ui/ListRow';
 import { formatCalories, formatFoodQuantity } from '../../utils/format';
 import { FoodProductModal } from './FoodProductModal';
@@ -13,9 +13,10 @@ type SectionProps = {
   date: string;
   day: JournalDay;
   onUpdate: (day: JournalDay) => void;
+  layout?: CardLayout;
 };
 
-export function FoodSection({ date, day, onUpdate }: SectionProps) {
+export function FoodSection({ date, day, onUpdate, layout }: SectionProps) {
   const [open, setOpen] = useState(false);
   const [editingId, setEditingId] = useState<number | null>(null);
 
@@ -50,22 +51,24 @@ export function FoodSection({ date, day, onUpdate }: SectionProps) {
 
   return (
     <>
-      <Card variant="food" className={styles.section}>
+      <Card variant="food" className={styles.section} layout={layout}>
         <CardHeader icon={<FlameIcon />} title="Alimentation" accent="food" />
         <CardBody>
           <Button variant="food" fullWidth icon={<PlusIcon />} onClick={openCreate}>
             Nouveau plat
           </Button>
-          {day.foods.map((food) => (
-            <ListRow
-              key={food.id}
-              label={food.foodName}
-              meta={formatFoodQuantity(food.weightGrams, food.unit ?? 'g')}
-              value={formatCalories(food.totalCalories)}
-              onEdit={() => openEdit(food.id)}
-              onDelete={() => void handleDelete(food.id)}
-            />
-          ))}
+          <div className={`${styles.listScroll} ${styles.listScrollFood}`}>
+            {day.foods.map((food) => (
+              <ListRow
+                key={food.id}
+                label={food.foodName}
+                meta={formatFoodQuantity(food.weightGrams, food.unit ?? 'g')}
+                value={formatCalories(food.totalCalories)}
+                onEdit={() => openEdit(food.id)}
+                onDelete={() => void handleDelete(food.id)}
+              />
+            ))}
+          </div>
         </CardBody>
         <CardFooter>
           <span>Total</span>

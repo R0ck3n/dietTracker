@@ -99,3 +99,48 @@
   background: var(--color-energy-10);
   color: var(--color-energy);
 }
+
+.stretch {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 0;
+  min-height: 0;
+  overflow: hidden;
+}
+
+.stretch .header {
+  flex-shrink: 0;
+}
+
+.stretch .body {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.stretch .footer {
+  margin-top: auto;
+  flex-shrink: 0;
+}
+
+.fill {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 0;
+}
+
+.fill .body {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.flat {
+  margin-bottom: 0;
+}

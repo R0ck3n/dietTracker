@@ -3,7 +3,7 @@ import { activityApi, journalApi } from '../../api';
 import type { JournalDay, SportActivity } from '../../api/types';
 import { PlusIcon, RunIcon } from '../icons/Icons';
 import { Button } from '../ui/Button';
-import { Card, CardBody, CardFooter, CardHeader } from '../ui/Card';
+import { Card, CardBody, CardFooter, CardHeader, type CardLayout } from '../ui/Card';
 import { ListRow } from '../ui/ListRow';
 import { Field, Modal, TextInput } from '../ui/Modal';
 import { formatCalories } from '../../utils/format';
@@ -13,9 +13,10 @@ type SectionProps = {
   date: string;
   day: JournalDay;
   onUpdate: (day: JournalDay) => void;
+  layout?: CardLayout;
 };
 
-export function SportSection({ date, day, onUpdate }: SectionProps) {
+export function SportSection({ date, day, onUpdate, layout }: SectionProps) {
   const [open, setOpen] = useState(false);
   const [editing, setEditing] = useState<SportActivity | null>(null);
   const [name, setName] = useState('');
@@ -65,22 +66,24 @@ export function SportSection({ date, day, onUpdate }: SectionProps) {
 
   return (
     <>
-      <Card variant="sport" className={styles.section}>
+      <Card variant="sport" className={styles.section} layout={layout}>
         <CardHeader icon={<RunIcon />} title="Sport" accent="sport" />
         <CardBody>
           <Button variant="sport" fullWidth icon={<PlusIcon />} onClick={openCreate}>
             Nouvelle activité
           </Button>
-          {day.activities.map((activity) => (
-            <ListRow
-              key={activity.id}
-              label={activity.activityName}
-              meta={`${activity.durationMinutes} min`}
-              value={formatCalories(activity.caloriesBurned)}
-              onEdit={() => openEdit(activity)}
-              onDelete={() => void handleDelete(activity.id)}
-            />
-          ))}
+          <div className={`${styles.listScroll} ${styles.listScrollSport}`}>
+            {day.activities.map((activity) => (
+              <ListRow
+                key={activity.id}
+                label={activity.activityName}
+                meta={`${activity.durationMinutes} min`}
+                value={formatCalories(activity.caloriesBurned)}
+                onEdit={() => openEdit(activity)}
+                onDelete={() => void handleDelete(activity.id)}
+              />
+            ))}
+          </div>
         </CardBody>
         <CardFooter>
           <span>Total</span>

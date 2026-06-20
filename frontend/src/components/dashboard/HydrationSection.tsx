@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { journalApi } from '../../api';
 import type { JournalDay } from '../../api/types';
 import { WaterIcon } from '../icons/Icons';
-import { Card, CardBody, CardHeader } from '../ui/Card';
+import { Card, CardBody, CardHeader, type CardLayout } from '../ui/Card';
 import { HydrationStepper } from '../ui/NumberStepper';
 import { SaveButton } from '../ui/SaveButton';
 import { combineHydration, splitHydration } from '../../utils/format';
@@ -12,9 +12,10 @@ type SectionProps = {
   date: string;
   day: JournalDay;
   onUpdate: (day: JournalDay) => void;
+  layout?: CardLayout;
 };
 
-export function HydrationSection({ date, day, onUpdate }: SectionProps) {
+export function HydrationSection({ date, day, onUpdate, layout }: SectionProps) {
   const initial = splitHydration(day.hydrationLiters);
   const [liters, setLiters] = useState(initial.liters);
   const [centiliters, setCentiliters] = useState(initial.centiliters);
@@ -37,7 +38,7 @@ export function HydrationSection({ date, day, onUpdate }: SectionProps) {
   }
 
   return (
-    <Card variant="hydration" className={styles.section}>
+    <Card variant="hydration" className={styles.section} layout={layout}>
       <CardHeader icon={<WaterIcon />} title="Hydratation" accent="hydration" />
       <CardBody>
         <div className={styles.inlineSave}>

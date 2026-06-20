@@ -1,7 +1,8 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import type { DailyStat, JournalDay } from '../api/types';
 import { statsApi } from '../api';
 import { useJournal } from '../hooks/useJournal';
+import { useMediaQuery } from '../hooks/useMediaQuery';
 import { getMonthRange, parseDateString, todayString } from '../utils/dates';
 import { AppShell } from '../components/layout/AppShell';
 import { DateSelector } from '../components/layout/DateSelector';
@@ -43,6 +44,7 @@ export function DashboardPage() {
   const [date, setDate] = useState(todayString());
   const { day, loading, error, mutate } = useJournal(date);
   const [chartDays, setChartDays] = useState<DailyStat[]>([]);
+  const isDesktop = useMediaQuery('(min-width: 1024px)');
 
   useEffect(() => {
     const parsed = parseDateString(date);
@@ -50,11 +52,14 @@ export function DashboardPage() {
     statsApi.getRange(range.from, range.to).then((stats) => setChartDays(stats.days));
   }, [date]);
 
-  const update = (next: JournalDay) => {
-    mutate(next);
-  };
+  const update = useCallback(
+    (next: JournalDay) => {
+      mutate(next);
+    },
+    [mutate],
+  );
 
-  if (loading || !day) {
+  if (loading && !day) {
     return (
       <div className={styles.page}>
         <p className={styles.status}>Chargement...</p>
@@ -62,7 +67,7 @@ export function DashboardPage() {
     );
   }
 
-  if (error) {
+  if (error && !day) {
     return (
       <div className={styles.page}>
         <p className={styles.error}>{error}</p>
@@ -70,41 +75,57 @@ export function DashboardPage() {
     );
   }
 
+  if (!day) {
+    return null;
+  }
+
   return (
     <div className={styles.page}>
       <Sidebar day={day} />
 
       <div className={styles.content}>
-        <header className={styles.desktopHeader}>
-          <LogoIcon size={64} />
-          <div>
-            <AppTitle size="md" />
-            <p className={styles.desktopSubtitle}>Suivi nutritionnel personnel</p>
-          </div>
-        </header>
+        {isDesktop ? (
+          <>
+            <header className={styles.desktopHeader}>
+              <LogoIcon size={64} />
+              <div>
+                <AppTitle size="md" />
+                <p className={styles.desktopSubtitle}>Suivi nutritionnel personnel</p>
+              </div>
+            </header>
 
-        <div className={styles.mobileShell}>
-          <AppShell>
-            <DateSelector date={date} onChange={setDate} />
-            <DailySummary day={day} />
-            <DashboardSections date={date} day={day} onUpdate={update} />
-          </AppShell>
-        </div>
-
-        <div className={styles.desktopBody}>
-          <DateSelector date={date} onChange={setDate} />
-          <div className={styles.grid}>
-            <WeightSection date={date} day={day} onUpdate={update} />
-            <FoodSection date={date} day={day} onUpdate={update} />
-            <SportSection date={date} day={day} onUpdate={update} />
-            <div className={styles.chartArea}>
-              <StatsChart days={chartDays} compact />
+            <div className={styles.desktopBody}>
+              <DateSelector date={date} onChange={setDate} />
+              <div className={styles.grid}>
+                <div className={styles.gridWeight}>
+                  <WeightSection date={date} day={day} onUpdate={update} layout="stretch" />
+                </div>
+                <div className={styles.gridFood}>
+                  <FoodSection date={date} day={day} onUpdate={update} layout="stretch" />
+                </div>
+                <div className={styles.gridSport}>
+                  <SportSection date={date} day={day} onUpdate={update} layout="stretch" />
+                </div>
+                <div className={styles.chartArea}>
+                  <StatsChart days={chartDays} compact />
+                </div>
+                <div className={styles.rightStack}>
+                  <HydrationSection date={date} day={day} onUpdate={update} layout="flat" />
+                  <SleepSection date={date} day={day} onUpdate={update} layout="flat" />
+                  <NotesSection date={date} day={day} onUpdate={update} layout="flat" />
+                </div>
+              </div>
             </div>
-            <HydrationSection date={date} day={day} onUpdate={update} />
-            <SleepSection date={date} day={day} onUpdate={update} />
-            <NotesSection date={date} day={day} onUpdate={update} />
+          </>
+        ) : (
+          <div className={styles.mobileShell}>
+            <AppShell>
+              <DateSelector date={date} onChange={setDate} />
+              <DailySummary day={day} />
+              <DashboardSections date={date} day={day} onUpdate={update} />
+            </AppShell>
           </div>
-        </div>
+        )}
       </div>
     </div>
   );

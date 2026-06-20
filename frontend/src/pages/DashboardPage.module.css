@@ -20,7 +20,7 @@
 
 .desktopHeader,
 .desktopBody {
-  display: none;
+  display: block;
 }
 
 .mobileShell {
@@ -30,15 +30,18 @@
 @media (min-width: 1024px) {
   .page {
     display: flex;
+    height: 100vh;
+    max-height: 100vh;
+    min-height: 100vh;
+    overflow: hidden;
   }
 
-  .mobileShell {
-    display: none;
-  }
-
-  .desktopHeader,
-  .desktopBody {
-    display: block;
+  .content {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    min-height: 0;
+    overflow: hidden;
   }
 
   .desktopHeader {
@@ -50,6 +53,7 @@
     border-radius: var(--radius-sm);
     background: var(--color-bg-panel);
     border: 1px solid var(--color-border);
+    flex-shrink: 0;
   }
 
   .desktopSubtitle {
@@ -58,18 +62,88 @@
   }
 
   .desktopBody {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    min-height: 0;
     padding: 16px;
+    overflow: hidden;
+  }
+
+  .desktopBody > :first-child {
+    flex-shrink: 0;
   }
 
   .grid {
     display: grid;
     grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-template-rows: minmax(0, auto) minmax(0, 1fr);
+    grid-template-areas:
+      'weight food sport'
+      'chart chart side';
     gap: 16px;
-    align-items: start;
+    flex: 1;
+    min-height: 0;
+    align-items: stretch;
+    overflow: hidden;
+  }
+
+  .gridWeight {
+    grid-area: weight;
+    min-height: 0;
+    max-height: 100%;
+    display: flex;
+    overflow: hidden;
+  }
+
+  .gridFood {
+    grid-area: food;
+    min-height: 0;
+    max-height: 100%;
+    display: flex;
+    overflow: hidden;
+  }
+
+  .gridSport {
+    grid-area: sport;
+    min-height: 0;
+    max-height: 100%;
+    display: flex;
+    overflow: hidden;
+  }
+
+  .gridWeight > *,
+  .gridFood > *,
+  .gridSport > * {
+    flex: 1;
+    min-height: 0;
+    width: 100%;
   }
 
   .chartArea {
-    grid-column: span 2;
-    grid-row: span 2;
+    grid-area: chart;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+
+  .chartArea > * {
+    flex: 1;
+    min-height: 0;
+  }
+
+  .rightStack {
+    grid-area: side;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-height: 0;
+    height: 100%;
+  }
+
+  .rightStack > * {
+    flex-shrink: 0;
+    margin-bottom: 0;
   }
 }

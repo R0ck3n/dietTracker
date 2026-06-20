@@ -3,14 +3,20 @@ import styles from './Card.module.css';
 
 type CardVariant = 'default' | 'food' | 'sport' | 'hydration' | 'sleep' | 'weight' | 'notes' | 'summary';
 
+export type CardLayout = 'stretch' | 'fill' | 'flat';
+
 type CardProps = {
   variant?: CardVariant;
   children: ReactNode;
   className?: string;
+  layout?: CardLayout;
 };
 
-export function Card({ variant = 'default', children, className }: CardProps) {
-  return <section className={`${styles.card} ${styles[variant]} ${className ?? ''}`}>{children}</section>;
+export function Card({ variant = 'default', children, className, layout }: CardProps) {
+  const layoutClass = layout ? styles[layout] : '';
+  return (
+    <section className={`${styles.card} ${styles[variant]} ${layoutClass} ${className ?? ''}`}>{children}</section>
+  );
 }
 
 type CardHeaderProps = {

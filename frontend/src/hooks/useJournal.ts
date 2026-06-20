@@ -8,26 +8,40 @@ export function useJournal(date: string) {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
-  const reload = useCallback(async () => {
-    setLoading(true);
-    setError(null);
-    try {
-      const response = await journalApi.getDay(date);
-      setDay(response);
-    } catch (err) {
-      setError(err instanceof ApiClientError ? err.message : 'Erreur de chargement');
-    } finally {
-      setLoading(false);
-    }
-  }, [date]);
-
   useEffect(() => {
-    void reload();
-  }, [reload]);
+    let cancelled = false;
+
+    async function load() {
+      setLoading(true);
+      setError(null);
+
+      try {
+        const response = await journalApi.getDay(date);
+        if (!cancelled) {
+          setDay(response);
+        }
+      } catch (err) {
+        if (!cancelled) {
+          setError(err instanceof ApiClientError ? err.message : 'Erreur de chargement');
+        }
+      } finally {
+        if (!cancelled) {
+          setLoading(false);
+        }
+      }
+    }
+
+    setDay(null);
+    void load();
+
+    return () => {
+      cancelled = true;
+    };
+  }, [date]);
 
   const mutate = useCallback((next: JournalDay) => {
     setDay(next);
   }, []);
 
-  return { day, loading, error, reload, mutate };
+  return { day, loading, error, mutate };
 }

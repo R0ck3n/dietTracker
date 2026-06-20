@@ -18,6 +18,7 @@ type FoodProductModalProps = {
 
 export function FoodProductModal({ open, editing, onClose, onSubmit }: FoodProductModalProps) {
   const dialogRef = useRef<HTMLDialogElement>(null);
+  const ignoreCloseRef = useRef(false);
   const [name, setName] = useState('');
   const [qty, setQty] = useState('100');
   const [unit, setUnit] = useState<FoodUnit>('g');
@@ -30,11 +31,21 @@ export function FoodProductModal({ open, editing, onClose, onSubmit }: FoodProdu
     if (!dialog) return;
 
     if (open && !dialog.open) {
+      ignoreCloseRef.current = false;
       dialog.showModal();
     } else if (!open && dialog.open) {
+      ignoreCloseRef.current = true;
       dialog.close();
     }
   }, [open]);
+
+  function handleDialogClose() {
+    if (ignoreCloseRef.current) {
+      ignoreCloseRef.current = false;
+      return;
+    }
+    onClose();
+  }
 
   useEffect(() => {
     if (!open) {
@@ -133,14 +144,10 @@ export function FoodProductModal({ open, editing, onClose, onSubmit }: FoodProdu
     }
   }
 
-  if (!open) {
-    return null;
-  }
-
   const energyHint = unit === 'g' ? 'Kcal / 100 g' : 'Kcal / 100 ml';
 
   return (
-    <dialog ref={dialogRef} className={styles.dialog} onClose={onClose}>
+    <dialog ref={dialogRef} className={styles.dialog} onClose={handleDialogClose}>
       <form className={styles.form} onSubmit={(event) => void handleSubmit(event)}>
         <h3 className={styles.title}>{editing ? 'Modifier une ligne' : 'Ajouter une ligne'}</h3>
 

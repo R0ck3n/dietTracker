@@ -2,6 +2,67 @@
   margin-bottom: var(--section-gap);
 }
 
+.listScroll {
+  min-height: 0;
+}
+
+@media (min-width: 1024px) {
+  .listScroll {
+    --desktop-list-row-height: 41px;
+    --scrollbar-size: 6px;
+    --scrollbar-track: rgba(255, 255, 255, 0.04);
+    --scrollbar-thumb: rgba(132, 139, 149, 0.45);
+    --scrollbar-thumb-hover: rgba(132, 139, 149, 0.7);
+    max-height: calc(var(--desktop-list-row-height) * 4);
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    scrollbar-gutter: stable;
+    padding-inline-end: 2px;
+    scrollbar-width: thin;
+    scrollbar-color: var(--scrollbar-thumb) transparent;
+  }
+
+  .listScroll::-webkit-scrollbar {
+    width: var(--scrollbar-size);
+  }
+
+  .listScroll::-webkit-scrollbar-track {
+    margin-block: 2px;
+    background: var(--scrollbar-track);
+    border-radius: 999px;
+  }
+
+  .listScroll::-webkit-scrollbar-thumb {
+    background: var(--scrollbar-thumb);
+    border-radius: 999px;
+    border: 1px solid transparent;
+    background-clip: padding-box;
+  }
+
+  .listScroll::-webkit-scrollbar-thumb:hover {
+    background: var(--scrollbar-thumb-hover);
+  }
+
+  .listScrollFood {
+    --scrollbar-track: rgba(236, 126, 86, 0.08);
+    --scrollbar-thumb: rgba(236, 126, 86, 0.45);
+    --scrollbar-thumb-hover: rgba(236, 126, 86, 0.75);
+    scrollbar-color: var(--scrollbar-thumb) var(--scrollbar-track);
+  }
+
+  .listScrollSport {
+    --scrollbar-track: rgba(177, 141, 42, 0.1);
+    --scrollbar-thumb: rgba(177, 141, 42, 0.5);
+    --scrollbar-thumb-hover: rgba(177, 141, 42, 0.8);
+    scrollbar-color: var(--scrollbar-thumb) var(--scrollbar-track);
+  }
+
+  .notesDesktop .notes {
+    min-height: 96px;
+    resize: none;
+  }
+}
+
 .inlineSave {
   display: flex;
   align-items: center;
@@ -51,4 +112,19 @@
   color: var(--color-grey);
   font-weight: 700;
   font-size: 12px;
+}
+
+@media (min-width: 1024px) {
+  .notesFill .notesWrap {
+    flex: 1;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .notesFill .notes {
+    flex: 1;
+    min-height: 0;
+    resize: none;
+  }
 }

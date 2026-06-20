@@ -3,7 +3,7 @@ import { journalApi, sleepApi } from '../../api';
 import type { JournalDay } from '../../api/types';
 import { combineBedWake, parseIsoTime } from '../../utils/dates';
 import { MoonIcon } from '../icons/Icons';
-import { Card, CardBody, CardHeader } from '../ui/Card';
+import { Card, CardBody, CardHeader, type CardLayout } from '../ui/Card';
 import { TimeStepper } from '../ui/NumberStepper';
 import { SaveButton } from '../ui/SaveButton';
 import styles from './Sections.module.css';
@@ -12,9 +12,10 @@ type SectionProps = {
   date: string;
   day: JournalDay;
   onUpdate: (day: JournalDay) => void;
+  layout?: CardLayout;
 };
 
-export function SleepSection({ date, day, onUpdate }: SectionProps) {
+export function SleepSection({ date, day, onUpdate, layout }: SectionProps) {
   const sleep = day.sleep;
   const bed = sleep ? parseIsoTime(sleep.bedTime) : { hours: 22, minutes: 30 };
   const wake = sleep ? parseIsoTime(sleep.wakeTime) : { hours: 7, minutes: 0 };
@@ -28,13 +29,14 @@ export function SleepSection({ date, day, onUpdate }: SectionProps) {
 
   useEffect(() => {
     if (!day.sleep) return;
+
     const nextBed = parseIsoTime(day.sleep.bedTime);
     const nextWake = parseIsoTime(day.sleep.wakeTime);
     setBedHours(nextBed.hours);
     setBedMinutes(nextBed.minutes);
     setWakeHours(nextWake.hours);
     setWakeMinutes(nextWake.minutes);
-  }, [day.sleep]);
+  }, [day.sleep?.id, day.sleep?.bedTime, day.sleep?.wakeTime]);
 
   async function saveSleep(bedH: number, bedM: number, wakeH: number, wakeM: number) {
     const { bedTime, wakeTime } = combineBedWake(date, bedH, bedM, wakeH, wakeM);
@@ -60,7 +62,7 @@ export function SleepSection({ date, day, onUpdate }: SectionProps) {
   }
 
   return (
-    <Card variant="sleep" className={styles.section}>
+    <Card variant="sleep" className={styles.section} layout={layout}>
       <CardHeader icon={<MoonIcon />} title="Sommeil" accent="sleep" />
       <CardBody>
         <div className={styles.sleepRow}>
