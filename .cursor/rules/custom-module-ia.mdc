@@ -1,0 +1,10 @@
+---
+description: Contexte ia du module custom en cours (dossier ai/ à la racine )
+alwaysApply: false
+---
+# Contexte IA — dossier `ai/` du module en cours
+
+**Mise à jour de `app.md` après génération** : si tu ajoutes ou modifies du code fonctionnel` (pages, ajax, lib, API, droits, constantes, flux JS, extrafields, etc.), **mets à jour** `./ai/mapp.md` dans la même session, sans attendre que l’utilisateur le demande.
+   - Documente : fichiers clés touchés, constantes/droits, endpoints ou helpers nouveaux, schémas JSON, points d’attention.
+   - Garde le guide concis (structure existante du fichier) ; pas de copier-coller de code entier.
+   - Pas de mise à jour pour des changements purement cosmétiques (commentaires, formatage) sans impact fonctionnel.
