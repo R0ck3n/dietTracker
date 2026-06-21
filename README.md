@@ -90,9 +90,9 @@ Champ libre permettant de consigner :
 Graphiques réalisés avec Chart.js :
 
 - évolution du poids
-- calories consommées et dépensées
+- calories consommées (alimentation)
 - durée de sommeil
-- corrélations (optionnelles)
+- **choix de période** : 7 j, 30 j, mois, 3 m, 6 m, 1 an, ou plage personnalisée (début / fin)
 
 ### Progressive Web App (PWA)
 
@@ -103,10 +103,11 @@ Graphiques réalisés avec Chart.js :
 
 ### Authentification
 
-- Utilisateur unique
-- Login local
-- Mot de passe hashé
+- **Plusieurs comptes** — chaque utilisateur a ses propres données (isolées par `UserID` en base)
+- Inscription ouverte via `/register` ou script CLI
+- Login local, mot de passe hashé (Argon2)
 - Session sécurisée par cookie
+- Suppression des données ou du compte (confirmation par mot de passe)
 
 ---
 
@@ -114,13 +115,40 @@ Graphiques réalisés avec Chart.js :
 
 | Couche | Technologie |
 |----------|----------|
-| Frontend | React (SPA) |
-| Langage Frontend | TypeScript |
-| Backend | Node.js + Fastify |
-| Base de données | SQLite |
+| Frontend | React 19 (SPA) + TypeScript |
+| Backend | Node.js + Fastify 5 |
+| Base de données | SQLite (better-sqlite3) |
 | Graphiques | Chart.js |
 | PWA | Vite PWA Plugin |
+| Déploiement prod | Caddy + scripts PowerShell (`deploy/`) |
 | Réseau | Tailscale |
+
+---
+
+## Démarrage rapide (développement)
+
+```bash
+# Backend (:3000)
+cd backend
+cp .env.example .env   # si absent
+npm install
+npm run dev
+
+# Frontend (:5173, proxy /api → backend)
+cd frontend
+cp .env.example .env     # si absent
+npm install
+npm run dev
+```
+
+Créer un utilisateur en CLI :
+
+```bash
+cd backend
+npm run user:create -- monidentifiant monmotdepasse
+```
+
+> Si `better-sqlite3` plante après un changement de version Node : `npm rebuild better-sqlite3`
 
 ---
 
@@ -252,6 +280,24 @@ Chaque activité est directement rattachée à une journée :
 | POST | `/journal/:date/sleep` |
 | PUT | `/sleep/:id` |
 
+### Statistiques
+
+| Méthode | Endpoint |
+|----------|----------|
+| GET | `/stats?from=YYYY-MM-DD&to=YYYY-MM-DD` |
+
+### Authentification
+
+| Méthode | Endpoint |
+|----------|----------|
+| POST | `/auth/login` |
+| POST | `/auth/register` |
+| GET | `/auth/status` |
+| GET | `/auth/me` |
+| POST | `/auth/logout` |
+| DELETE | `/auth/data` | Supprime toutes les données du user connecté (body : `{ password }`) |
+| DELETE | `/auth/account` | Supprime le compte et les données (body : `{ password }`) |
+
 ---
 
 ## Interface utilisateur
@@ -278,7 +324,8 @@ Sections :
 - Sommeil
 - Poids
 - Notes du jour
-- Graphiques (page dédiée)
+- Graphiques (page `/graphiques` + widget desktop dans le dashboard)
+- Liens compte en haut à droite : supprimer mes données / supprimer mon compte
 
 Objectif principal :
 
@@ -305,23 +352,30 @@ Objectif principal :
 
 ## Graphiques
 
-### Poids
+Page `/graphiques` (mobile) et zone graphique du dashboard (desktop).
 
-Suivi de l'évolution dans le temps.
+### Période affichée
 
-### Calories
+Préréglages : **7 j · 30 j · Mois · 3 m · 6 m · 1 an · Perso** (dates début/fin).
 
-Total journalier consommé et total dépensé via le sport.
+### Courbes
 
-### Sommeil
+- Poids (axe gauche)
+- Calories alimentation (axe droit)
+- Sommeil net en heures (axe droit)
 
-Durée nette de sommeil.
+---
 
-### Corrélations (optionnel)
+## Déploiement production
 
-- sommeil ↔ poids
-- sommeil ↔ calories consommées
-- calories consommées ↔ calories dépensées
+Scripts dans `deploy/` (Windows, mini PC) :
+
+- `install.ps1` — installation initiale (npm ci, .env, build)
+- `start.ps1` / `stop.ps1` — démarrage / arrêt (backend + Caddy)
+- `register-startup.ps1` — lancement au boot Windows
+- `Caddyfile` — reverse proxy (frontend statique + API)
+
+Voir `deploy/backend.env.example` et `deploy/frontend.env.production` pour la config prod.
 
 ---
 
@@ -364,4 +418,4 @@ Les spécifications détaillées sont disponibles dans :
 
 ## Statut du projet
 
-🚧 En cours de test.
+✅ Fonctionnel — usage personnel (Tailscale). Développement terminé (juin 2026).
