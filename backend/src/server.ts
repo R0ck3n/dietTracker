@@ -26,7 +26,7 @@ export function buildApp() {
     secret: env.sessionSecret,
     cookieName: 'sessionId',
     cookie: {
-      secure: env.isProduction,
+      secure: env.cookieSecure,
       httpOnly: true,
       sameSite: 'lax',
       maxAge: 1000 * 60 * 60 * 24 * 7,

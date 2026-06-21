@@ -8,7 +8,8 @@
     "build": "tsc",
     "start": "node dist/server.js",
     "db:init": "tsx src/scripts/init-db.ts",
-    "user:create": "tsx src/scripts/create-user.ts"
+    "user:create": "tsx src/scripts/create-user.ts",
+    "user:set": "tsx src/scripts/set-user.ts"
   },
   "dependencies": {
     "@fastify/cookie": "^11.0.2",

@@ -1,0 +1,163 @@
+﻿2026-06-21 09:24:02 === Demarrage Diet Tracker (boot) ===
+2026-06-21 09:24:02 Compte Windows : SERVER\rocke
+2026-06-21 09:24:02 Attente 60 secondes (reseau)...
+2026-06-21 09:24:38 === Demarrage Diet Tracker (boot) ===
+2026-06-21 09:24:38 Compte Windows : SERVER\rocke
+2026-06-21 09:24:38 Attente 60 secondes (reseau)...
+2026-06-21 09:24:48 === Demarrage Diet Tracker (boot) ===
+2026-06-21 09:24:48 Compte Windows : SERVER\rocke
+2026-06-21 09:24:48 Attente 60 secondes (reseau)...
+2026-06-21 09:28:54 === Demarrage Diet Tracker (boot) ===
+2026-06-21 09:28:55 Compte Windows : SERVER\rocke
+2026-06-21 09:28:55 Attente 60 secondes (reseau)...
+2026-06-21 09:40:29 === Demarrage Diet Tracker (boot) ===
+2026-06-21 09:40:29 Compte Windows : SERVER\rocke
+2026-06-21 09:40:29 Attente 60 secondes (reseau)...
+2026-06-21 09:41:29 Execution de 
+2026-06-21 09:41:30   Impossible d'exécuter la commande, car le paramètre File requiert un chemin d'accès au fichier. Indiquez un chemin d'accès pour le paramètre File et réessayez.
+2026-06-21 09:41:30   
+2026-06-21 09:41:30   PowerShell[.exe] [-PSConsoleFile <file> | -Version <version>]
+2026-06-21 09:41:30       [-NoLogo] [-NoExit] [-Sta] [-Mta] [-NoProfile] [-NonInteractive]
+2026-06-21 09:41:30       [-InputFormat {Text | XML}] [-OutputFormat {Text | XML}]
+2026-06-21 09:41:30       [-WindowStyle <style>] [-EncodedCommand <Base64EncodedCommand>]
+2026-06-21 09:41:30       [-ConfigurationName <string>]
+2026-06-21 09:41:30       [-File <filePath> <args>] [-ExecutionPolicy <ExecutionPolicy>]
+2026-06-21 09:41:30       [-WorkingDirectory <directoryPath>]
+2026-06-21 09:41:30       [-Command { - | <script-block> [-args <arg-array>]
+2026-06-21 09:41:30                     | <string> [<CommandParameters>] } ]
+2026-06-21 09:41:30   
+2026-06-21 09:41:30   PowerShell[.exe] -Help | -? | /?
+2026-06-21 09:41:30   
+2026-06-21 09:41:30   -PSConsoleFile
+2026-06-21 09:41:30       Charge le fichier de console Windows PowerShell spécifié. Pour créer un fichier
+2026-06-21 09:41:30       de console, utilisez Export-Console dans Windows PowerShell.
+2026-06-21 09:41:30   
+2026-06-21 09:41:30   -Version
+2026-06-21 09:41:30       Permet de démarrer la version spécifiée de Windows PowerShell.
+2026-06-21 09:41:30       Entrez un numéro de version avec le paramètre, tel que « -version 2.0 ».
+2026-06-21 09:41:30   
+2026-06-21 09:41:30   -NoLogo
+2026-06-21 09:41:30       Masque la bannière de droits d'auteur au démarrage.
+2026-06-21 09:41:30   
+2026-06-21 09:41:30   -NoExit
+2026-06-21 09:41:30       Ne quitte pas après l'exécution des commandes de démarrage.
+2026-06-21 09:41:30   
+2026-06-21 09:41:30   -Sta
+2026-06-21 09:41:30       Démarre l'interpréteur de commandes en utilisant un thread unique cloisonné.
+2026-06-21 09:41:30       Le thread unique cloisonné (STA) est la valeur par défaut.
+2026-06-21 09:41:30   
+2026-06-21 09:41:30   -Mta
+2026-06-21 09:41:30       Démarrer l'interpréteur de commandes en utilisant un multithread cloisonné.
+2026-06-21 09:41:30   
+2026-06-21 09:41:30   -NoProfile
+2026-06-21 09:41:30       Ne permet pas de charger le profil Windows PowerShell.
+2026-06-21 09:41:30   
+2026-06-21 09:41:30   -NonInteractive
+2026-06-21 09:41:30       Ne permet pas d'afficher une invite interactive pour l'utilisateur.
+2026-06-21 09:41:30   
+2026-06-21 09:41:30   -InputFormat
+2026-06-21 09:41:30       Décrit le format des données envoyées à Windows PowerShell. Les valeurs valides sont
+2026-06-21 09:41:30       « Text » (chaînes de texte) ou « XML » (format CLIXML sérialisé).
+2026-06-21 09:41:30   
+2026-06-21 09:41:30   -OutputFormat
+2026-06-21 09:41:30       Détermine la méthode de mise en forme de la sortie de Windows PowerShell. Les valeurs valides
+2026-06-21 09:41:30       sont « Text » (chaînes de texte) ou « XML » (format CLIXML sérialisé).
+2026-06-21 09:41:30   
+2026-06-21 09:41:30   -WindowStyle
+2026-06-21 09:41:30       Permet de définir le style de fenêtre sur Normal, Minimized (Réduit), Maximized (Maximisé) ou Hidden (Masqué).
+2026-06-21 09:41:30   
+2026-06-21 09:41:30   -EncodedCommand
+2026-06-21 09:41:30       Accepte une version de chaîne codée en base 64 d'une commande. Utilisez ce paramètre
+2026-06-21 09:41:30       pour soumettre des commandes à Windows PowerShell qui doivent avoir des guillemets
+2026-06-21 09:41:30       complexes ou des accolades.
+2026-06-21 09:41:30   
+2026-06-21 09:41:30   -ConfigurationName
+2026-06-21 09:41:30       Permet de spécifier un point de terminaison de configuration dans lequel Windows PowerShell est exécuté.
+2026-06-21 09:41:30       Il peut s'agir de n'importe quel point de terminaison enregistré sur la machine locale, y compris les
+2026-06-21 09:41:30       points de terminaison de communication à distance Windows PowerShell par défaut ou un point de terminaison personnalisé doté
+2026-06-21 09:41:30       de capacités de rôle utilisateur spécifiques.
+2026-06-21 09:41:30   
+2026-06-21 09:41:30   -File
+2026-06-21 09:41:30       Exécute le script spécifié dans la portée locale (« dot-sourced »), de sorte que le
+2026-06-21 09:41:30       les fonctions et les variables créées par le script soient disponibles dans la
+2026-06-21 09:41:30       session en cours. Entrez le chemin du fichier de script et tous les paramètres.
+2026-06-21 09:41:30       Le fichier doit être le dernier paramètre de la commande, car tous les caractères
+2026-06-21 09:41:30       saisis après le nom du paramètre Fichier sont interprétés
+2026-06-21 09:41:30       comme le chemin du fichier de script suivi des paramètres de script.
+2026-06-21 09:41:30   
+2026-06-21 09:41:30   -ExecutionPolicy
+2026-06-21 09:41:30       Permet de définir la stratégie d'exécution par défaut pour la session en cours et l'enregistrement
+2026-06-21 09:41:30       dans la variable d'environnement $env:PSExecutionPolicyPreference.
+2026-06-21 09:41:30       Ce paramètre ne modifie pas la stratégie d'exécution de Windows PowerShell
+2026-06-21 09:41:30       définie dans le registre.
+2026-06-21 09:41:30   
+2026-06-21 09:41:30   -Command
+2026-06-21 09:41:30       Permet d'exécuter les commandes spécifiées (et tous les paramètres) comme si elles avaient été
+2026-06-21 09:41:30       saisies à l'invite de commandes Windows PowerShell, puis de quitter, sauf si
+2026-06-21 09:41:30       NoExit est spécifié. La valeur de Command peut être « - », une chaîne ou un
+2026-06-21 09:41:30       bloc de script.
+2026-06-21 09:41:30   
+2026-06-21 09:41:30       Si la valeur de la commande est « - », le texte de la commande est lu à partir de la norme
+2026-06-21 09:41:30       standard.
+2026-06-21 09:41:30   
+2026-06-21 09:41:30       Si la valeur de Command est un bloc de script, le bloc de script doit être placé
+2026-06-21 09:41:30       entre accolades ({}). Vous ne pouvez spécifier un bloc de script que lors de l'exécution de PowerShell.exe
+2026-06-21 09:41:30       dans Windows PowerShell. Les résultats du bloc de script sont renvoyés au
+2026-06-21 09:41:30       shell parent sous forme d'objets XML désérialisés, et non d'objets actifs.
+2026-06-21 09:41:30   
+2026-06-21 09:41:30       Si la valeur de Command est une chaîne, Command doit être le dernier paramètre
+2026-06-21 09:41:30       de la commande, car tous les caractères saisis après la commande sont
+2026-06-21 09:41:30       interprétés comme les arguments de la commande.
+2026-06-21 09:41:30   
+2026-06-21 09:41:30       Pour écrire une chaîne qui exécute une commande Windows PowerShell, utilisez le format :
+2026-06-21 09:41:30   	"& {<command>}"
+2026-06-21 09:41:30       où les guillemets indiquent une chaîne et l'opérateur d'appel (&)
+2026-06-21 09:41:30       provoque l'exécution de la commande.
+2026-06-21 09:41:30   
+2026-06-21 09:41:30   -WorkingDirectory | -wd
+2026-06-21 09:41:30       Permet de définir le répertoire de travail au démarrage de PowerShell en fonction d'un chemin de répertoire PowerShell valide.
+2026-06-21 09:41:30       Exécution de `Set-Location -LiteralPath <path>` au démarrage.
+2026-06-21 09:41:30       Exemple : pwsh -WorkingDirectory ~
+2026-06-21 09:41:30   
+2026-06-21 09:41:30   -Help, -?, /?
+2026-06-21 09:41:30       Affiche ce message. Si vous saisissez une commande PowerShell.exe dans Windows
+2026-06-21 09:41:30       PowerShell, ajoutez un trait d'union (-) au début des paramètres de commande, et non une barre
+2026-06-21 09:41:30       oblique (/). Vous pouvez utiliser un trait d'union ou une barre oblique dans Cmd.exe.
+2026-06-21 09:41:30   
+2026-06-21 09:41:30   EXEMPLES
+2026-06-21 09:41:30       PowerShell -PSConsoleFile SqlSnapIn.Psc1
+2026-06-21 09:41:30       PowerShell -version 3.0 -NoLogo -InputFormat text -OutputFormat XML
+2026-06-21 09:41:30       PowerShell -ConfigurationName AdminRoles
+2026-06-21 09:41:30       PowerShell -Command {Get-EventLog -LogName security}
+2026-06-21 09:41:30       PowerShell -Command "& {Get-EventLog -LogName security}"
+2026-06-21 09:41:30   
+2026-06-21 09:41:30       # Pour utiliser le paramètre -EncodedCommand :
+2026-06-21 09:41:30       $command = 'dir "c:\program files" '
+2026-06-21 09:41:30       $bytes = [System.Text.Encoding]::Unicode.GetBytes($command)
+2026-06-21 09:41:30       $encodedCommand = [Convert]::ToBase64String($bytes)
+2026-06-21 09:41:30       powershell.exe -encodedCommand $encodedCommand
+2026-06-21 09:41:30 === Demarrage termine avec succes ===
+21/06/2026  9:58:42,86 === Demarrage Diet Tracker ===
+21/06/2026  9:58:42,98 Compte: SERVER\rocke
+21/06/2026  9:58:43,07 Attente 45 secondes...
+21/06/2026  9:59:28,22 Execution start.ps1...
+API dǸj�� active sur le port 3000.
+Caddy dǸj�� actif �?" rechargement de la configuration...
+caddy_windows_amd64.exe : {"level":"info","ts":1782028769.0712216,"msg":"using config from 
+file","file":"C:\\caddy\\Caddyfile"}
+Au caract�re C:\apps\dietTracker\deploy\start.ps1:65 : 5
++     & $caddyExe reload --config $caddyfile 2>&1 | Out-Null
++     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: ({"level":"info"...dy\\Caddyfile"}:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+21/06/2026  9:59:29,23 === Termine (code 1) ===
+21/06/2026 10:01:28,21 === Demarrage Diet Tracker ===
+21/06/2026 10:01:28,27 Compte: SERVER\rocke
+21/06/2026 10:01:28,31 Attente 45 secondes...
+21/06/2026 10:02:13,17 Execution start.ps1...
+DǸmarrage API Diet Tracker...
+DǸmarrage Caddy (C:\caddy\Caddyfile)...
+
+Diet Tracker est prǦt.
+Acc��s Tailscale : http://100.105.138.110:8080

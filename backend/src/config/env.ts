@@ -19,4 +19,8 @@ export const env = {
   sessionSecret: required('SESSION_SECRET', 'dev-only-change-me-before-production'),
   corsOrigin: process.env.CORS_ORIGIN ?? 'http://localhost:5173',
   isProduction: (process.env.NODE_ENV ?? 'development') === 'production',
+  cookieSecure:
+    process.env.COOKIE_SECURE !== undefined
+      ? process.env.COOKIE_SECURE === 'true'
+      : (process.env.NODE_ENV ?? 'development') === 'production',
 };

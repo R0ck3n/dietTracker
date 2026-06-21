@@ -1,0 +1,24 @@
+# Diet Tracker — accessible via Tailscale sur le port 8080
+# URL : http://<ip-tailscale-du-mini-pc>:8080
+#
+# Si Caddy sert déjà Jellyfin, copiez le bloc :8080 dans votre Caddyfile principal
+# puis : caddy reload --config C:\caddy\Caddyfile
+
+:8080 {
+	encode gzip zstd
+
+	root * C:\apps\dietTracker\frontend\dist
+
+	handle_path /api/* {
+		reverse_proxy 127.0.0.1:3000
+	}
+
+	handle {
+		try_files {path} /index.html
+		file_server
+	}
+
+	log {
+		output file C:\apps\dietTracker\deploy\logs\caddy-access.log
+	}
+}

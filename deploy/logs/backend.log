@@ -1,0 +1,34 @@
+{"level":30,"time":1782028937947,"pid":1948,"hostname":"server","msg":"Server listening at http://127.0.0.1:3000"}
+API Diet Tracker démarrée sur http://127.0.0.1:3000
+{"level":30,"time":1782028983932,"pid":1948,"hostname":"server","reqId":"req-1","req":{"method":"GET","url":"/auth/me","host":"100.105.138.110:8080","remoteAddress":"127.0.0.1","remotePort":31509},"msg":"incoming request"}
+{"level":30,"time":1782028983959,"pid":1948,"hostname":"server","reqId":"req-1","res":{"statusCode":401},"responseTime":26.66270000001532,"msg":"request completed"}
+{"level":30,"time":1782028983961,"pid":1948,"hostname":"server","reqId":"req-2","req":{"method":"GET","url":"/auth/status","host":"100.105.138.110:8080","remoteAddress":"127.0.0.1","remotePort":31510},"msg":"incoming request"}
+{"level":30,"time":1782028983963,"pid":1948,"hostname":"server","reqId":"req-2","res":{"statusCode":200},"responseTime":1.375,"msg":"request completed"}
+{"level":30,"time":1782028987223,"pid":1948,"hostname":"server","reqId":"req-3","req":{"method":"GET","url":"/auth/me","host":"100.105.138.110:8080","remoteAddress":"127.0.0.1","remotePort":31510},"msg":"incoming request"}
+{"level":30,"time":1782028987224,"pid":1948,"hostname":"server","reqId":"req-3","res":{"statusCode":401},"responseTime":1.2491999999911059,"msg":"request completed"}
+{"level":30,"time":1782028987225,"pid":1948,"hostname":"server","reqId":"req-4","req":{"method":"GET","url":"/auth/status","host":"100.105.138.110:8080","remoteAddress":"127.0.0.1","remotePort":31509},"msg":"incoming request"}
+{"level":30,"time":1782028987226,"pid":1948,"hostname":"server","reqId":"req-4","res":{"statusCode":200},"responseTime":1.347299999993993,"msg":"request completed"}
+{"level":30,"time":1782029027783,"pid":1948,"hostname":"server","reqId":"req-5","req":{"method":"GET","url":"/auth/me","host":"100.105.138.110:8080","remoteAddress":"127.0.0.1","remotePort":31509},"msg":"incoming request"}
+{"level":30,"time":1782029027787,"pid":1948,"hostname":"server","reqId":"req-5","res":{"statusCode":401},"responseTime":4.215100000001257,"msg":"request completed"}
+{"level":30,"time":1782029027789,"pid":1948,"hostname":"server","reqId":"req-6","req":{"method":"GET","url":"/auth/status","host":"100.105.138.110:8080","remoteAddress":"127.0.0.1","remotePort":31510},"msg":"incoming request"}
+{"level":30,"time":1782029027790,"pid":1948,"hostname":"server","reqId":"req-6","res":{"statusCode":200},"responseTime":1.6155000000144355,"msg":"request completed"}
+{"level":30,"time":1782029033580,"pid":1948,"hostname":"server","reqId":"req-7","req":{"method":"POST","url":"/auth/login","host":"100.105.138.110:8080","remoteAddress":"127.0.0.1","remotePort":31510},"msg":"incoming request"}
+{"level":30,"time":1782029033782,"pid":1948,"hostname":"server","reqId":"req-7","res":{"statusCode":200},"responseTime":201.29259999998612,"msg":"request completed"}
+{"level":30,"time":1782029033838,"pid":1948,"hostname":"server","reqId":"req-8","req":{"method":"GET","url":"/journal/2026-06-21","host":"100.105.138.110:8080","remoteAddress":"127.0.0.1","remotePort":31510},"msg":"incoming request"}
+{"level":30,"time":1782029033841,"pid":1948,"hostname":"server","reqId":"req-8","res":{"statusCode":200},"responseTime":2.5503000000026077,"msg":"request completed"}
+{"level":30,"time":1782029033845,"pid":1948,"hostname":"server","reqId":"req-9","req":{"method":"GET","url":"/stats?from=2026-06-01&to=2026-06-30","host":"100.105.138.110:8080","remoteAddress":"127.0.0.1","remotePort":31510},"msg":"incoming request"}
+{"level":30,"time":1782029033870,"pid":1948,"hostname":"server","reqId":"req-9","res":{"statusCode":200},"responseTime":24.09870000000228,"msg":"request completed"}
+{"level":30,"time":1782029041471,"pid":1948,"hostname":"server","reqId":"req-a","req":{"method":"GET","url":"/stats?from=2026-01-01&to=2026-12-31","host":"100.105.138.110:8080","remoteAddress":"127.0.0.1","remotePort":31510},"msg":"incoming request"}
+{"level":30,"time":1782029041486,"pid":1948,"hostname":"server","reqId":"req-a","res":{"statusCode":200},"responseTime":15.442999999999302,"msg":"request completed"}
+{"level":30,"time":1782029045460,"pid":1948,"hostname":"server","reqId":"req-b","req":{"method":"GET","url":"/journal/2026-06-21","host":"100.105.138.110:8080","remoteAddress":"127.0.0.1","remotePort":31510},"msg":"incoming request"}
+{"level":30,"time":1782029045463,"pid":1948,"hostname":"server","reqId":"req-b","res":{"statusCode":200},"responseTime":2.644000000000233,"msg":"request completed"}
+{"level":30,"time":1782029045464,"pid":1948,"hostname":"server","reqId":"req-c","req":{"method":"GET","url":"/stats?from=2026-06-01&to=2026-06-30","host":"100.105.138.110:8080","remoteAddress":"127.0.0.1","remotePort":31510},"msg":"incoming request"}
+{"level":30,"time":1782029045472,"pid":1948,"hostname":"server","reqId":"req-c","res":{"statusCode":200},"responseTime":7.327499999984866,"msg":"request completed"}
+{"level":30,"time":1782029156678,"pid":1948,"hostname":"server","reqId":"req-d","req":{"method":"GET","url":"/auth/status","host":"100.105.138.110:8080","remoteAddress":"127.0.0.1","remotePort":52508},"msg":"incoming request"}
+{"level":30,"time":1782029156680,"pid":1948,"hostname":"server","reqId":"req-d","res":{"statusCode":200},"responseTime":2.2694999999948777,"msg":"request completed"}
+{"level":30,"time":1782029156705,"pid":1948,"hostname":"server","reqId":"req-e","req":{"method":"GET","url":"/auth/me","host":"100.105.138.110:8080","remoteAddress":"127.0.0.1","remotePort":52508},"msg":"incoming request"}
+{"level":30,"time":1782029156707,"pid":1948,"hostname":"server","reqId":"req-e","res":{"statusCode":200},"responseTime":2.036599999992177,"msg":"request completed"}
+{"level":30,"time":1782029156769,"pid":1948,"hostname":"server","reqId":"req-f","req":{"method":"GET","url":"/stats?from=2026-06-01&to=2026-06-30","host":"100.105.138.110:8080","remoteAddress":"127.0.0.1","remotePort":52508},"msg":"incoming request"}
+{"level":30,"time":1782029156773,"pid":1948,"hostname":"server","reqId":"req-f","res":{"statusCode":200},"responseTime":3.7023000000044703,"msg":"request completed"}
+{"level":30,"time":1782029156791,"pid":1948,"hostname":"server","reqId":"req-g","req":{"method":"GET","url":"/journal/2026-06-21","host":"100.105.138.110:8080","remoteAddress":"127.0.0.1","remotePort":52508},"msg":"incoming request"}
+{"level":30,"time":1782029156792,"pid":1948,"hostname":"server","reqId":"req-g","res":{"statusCode":200},"responseTime":1.562900000018999,"msg":"request completed"}
