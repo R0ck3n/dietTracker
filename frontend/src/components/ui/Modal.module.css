@@ -13,6 +13,10 @@
   background: var(--color-bg-panel);
 }
 
+.dialogDanger {
+  border-color: var(--color-red);
+}
+
 .dialog::backdrop {
   background: rgba(0, 0, 0, 0.65);
 }
@@ -92,6 +96,11 @@
 .submit {
   background: var(--color-green);
   color: var(--color-black);
+}
+
+.submitDanger {
+  background: var(--color-red);
+  color: var(--color-white);
 }
 
 @media (max-width: 1023px) {

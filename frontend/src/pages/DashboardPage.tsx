@@ -17,6 +17,7 @@ import { NotesSection } from '../components/dashboard/NotesSection';
 import { ChartPeriodSelector } from '../components/dashboard/ChartPeriodSelector';
 import { StatsChart } from '../components/dashboard/StatsChart';
 import { AppTitle } from '../components/layout/AppTitle';
+import { AccountActions } from '../components/layout/AccountActions';
 import { LogoIcon } from '../components/icons/Icons';
 import styles from './DashboardPage.module.css';
 
@@ -46,6 +47,10 @@ export function DashboardPage() {
   const { day, loading, error, mutate } = useJournal(date);
   const { days: chartDays, period, setPeriod } = useChartStats('month', date);
   const isDesktop = useMediaQuery('(min-width: 1024px)');
+
+  const refreshPage = useCallback(() => {
+    window.location.reload();
+  }, []);
 
   const update = useCallback(
     (next: JournalDay) => {
@@ -82,11 +87,14 @@ export function DashboardPage() {
         {isDesktop ? (
           <>
             <header className={styles.desktopHeader}>
-              <LogoIcon size={64} />
-              <div>
-                <AppTitle size="md" />
-                <p className={styles.desktopSubtitle}>Suivi nutritionnel personnel</p>
+              <div className={styles.desktopHeaderMain}>
+                <LogoIcon size={64} />
+                <div>
+                  <AppTitle size="md" />
+                  <p className={styles.desktopSubtitle}>Suivi nutritionnel personnel</p>
+                </div>
               </div>
+              <AccountActions onDataDeleted={refreshPage} />
             </header>
 
             <div className={styles.desktopBody}>
@@ -115,7 +123,7 @@ export function DashboardPage() {
           </>
         ) : (
           <div className={styles.mobileShell}>
-            <AppShell>
+            <AppShell onDataDeleted={refreshPage}>
               <DateSelector date={date} onChange={setDate} />
               <DailySummary day={day} />
               <DashboardSections date={date} day={day} onUpdate={update} />

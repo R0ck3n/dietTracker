@@ -1,15 +1,17 @@
 import { NavLink, useNavigate } from 'react-router-dom';
 import { GraphIcon, HomeIcon, LogoutIcon, LogoIcon } from '../icons/Icons';
 import { AppTitle } from './AppTitle';
+import { AccountActions } from './AccountActions';
 import { useAuth } from '../../context/AuthContext';
 import styles from './AppShell.module.css';
 
 type AppShellProps = {
   children: React.ReactNode;
   subtitle?: string;
+  onDataDeleted?: () => void;
 };
 
-export function AppShell({ children, subtitle = 'Suivi nutritionnel personnel' }: AppShellProps) {
+export function AppShell({ children, subtitle = 'Suivi nutritionnel personnel', onDataDeleted }: AppShellProps) {
   const { user, logout } = useAuth();
   const navigate = useNavigate();
 
@@ -20,6 +22,9 @@ export function AppShell({ children, subtitle = 'Suivi nutritionnel personnel' }
 
   return (
     <div className={styles.shell}>
+      <div className={styles.topBar}>
+        <AccountActions onDataDeleted={onDataDeleted} />
+      </div>
       <header className={styles.header}>
         <LogoIcon size={44} />
         <AppTitle size="sm" />

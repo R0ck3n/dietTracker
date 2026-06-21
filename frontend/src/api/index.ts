@@ -30,6 +30,18 @@ export const authApi = {
   me() {
     return apiRequest<{ user: User }>('/auth/me');
   },
+  deleteData(password: string) {
+    return apiRequest<{ ok: boolean }>('/auth/data', {
+      method: 'DELETE',
+      body: JSON.stringify({ password }),
+    });
+  },
+  deleteAccount(password: string) {
+    return apiRequest<{ ok: boolean }>('/auth/account', {
+      method: 'DELETE',
+      body: JSON.stringify({ password }),
+    });
+  },
 };
 
 export const journalApi = {

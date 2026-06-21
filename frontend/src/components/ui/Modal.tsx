@@ -1,7 +1,7 @@
 import { useEffect, useRef, type FormEvent, type ReactNode } from 'react';
 import styles from './Modal.module.css';
 
-type ModalVariant = 'default' | 'sport';
+type ModalVariant = 'default' | 'sport' | 'danger';
 
 type ModalProps = {
   title: string;
@@ -53,7 +53,7 @@ export function Modal({
   return (
     <dialog
       ref={dialogRef}
-      className={`${styles.dialog} ${variant === 'sport' ? styles.dialogSport : ''}`}
+      className={`${styles.dialog} ${variant === 'sport' ? styles.dialogSport : ''} ${variant === 'danger' ? styles.dialogDanger : ''}`}
       onClose={handleDialogClose}
     >
       <form className={styles.form} onSubmit={onSubmit}>
@@ -68,7 +68,10 @@ export function Modal({
           <button type="button" className={styles.cancel} onClick={onClose}>
             Annuler
           </button>
-          <button type="submit" className={styles.submit}>
+          <button
+            type="submit"
+            className={`${styles.submit} ${variant === 'danger' ? styles.submitDanger : ''}`}
+          >
             {submitLabel}
           </button>
         </footer>

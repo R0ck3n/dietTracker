@@ -71,6 +71,10 @@ export class JournalRepository {
     return this.findById(journalId)!;
   }
 
+  deleteAllForUser(userId: number): void {
+    getDb().prepare('DELETE FROM Journal WHERE UserID = ?').run(userId);
+  }
+
   findInRange(userId: number, from: string, to: string): JournalRow[] {
     return getDb()
       .prepare(`

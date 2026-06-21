@@ -1,9 +1,13 @@
 import argon2 from 'argon2';
 import { AppError } from '../lib/errors.js';
+import { JournalRepository } from '../repositories/journal.repository.js';
 import { UserRepository } from '../repositories/user.repository.js';
 
 export class AuthService {
-  constructor(private readonly users = new UserRepository()) {}
+  constructor(
+    private readonly users = new UserRepository(),
+    private readonly journals = new JournalRepository(),
+  ) {}
 
   async login(username: string, password: string): Promise<{ userId: number; username: string }> {
     const user = this.users.findByUsername(username);
@@ -45,5 +49,27 @@ export class AuthService {
 
   hasUser(): boolean {
     return this.users.count() > 0;
+  }
+
+  async verifyPassword(userId: number, password: string): Promise<void> {
+    const user = this.users.findById(userId);
+    if (!user) {
+      throw new AppError('Utilisateur introuvable.', 404, 'USER_NOT_FOUND');
+    }
+
+    const valid = await argon2.verify(user.PasswordHash, password);
+    if (!valid) {
+      throw new AppError('Mot de passe incorrect.', 401, 'INVALID_PASSWORD');
+    }
+  }
+
+  async deleteUserData(userId: number, password: string): Promise<void> {
+    await this.verifyPassword(userId, password);
+    this.journals.deleteAllForUser(userId);
+  }
+
+  async deleteAccount(userId: number, password: string): Promise<void> {
+    await this.verifyPassword(userId, password);
+    this.users.deleteById(userId);
   }
 }

@@ -2,8 +2,21 @@
   margin-top: 8px;
 }
 
+.desktopTopBar {
+  display: none;
+}
+
 .status {
   text-align: center;
   color: var(--color-grey);
   padding: 48px 16px;
+}
+
+@media (min-width: 1024px) {
+  .desktopTopBar {
+    display: flex;
+    justify-content: flex-end;
+    padding: 16px 16px 0;
+    background: var(--color-bg);
+  }
 }

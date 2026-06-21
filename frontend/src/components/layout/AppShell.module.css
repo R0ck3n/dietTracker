@@ -4,6 +4,12 @@
   padding: 24px 16px 32px;
 }
 
+.topBar {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 8px;
+}
+
 .header {
   display: flex;
   flex-direction: column;
@@ -59,6 +65,7 @@
     padding: 0;
   }
 
+  .topBar,
   .header,
   .nav {
     display: none;

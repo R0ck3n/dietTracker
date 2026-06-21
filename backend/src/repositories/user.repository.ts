@@ -30,6 +30,10 @@ export class UserRepository {
     return this.findById(userId)!;
   }
 
+  deleteById(userId: number): void {
+    getDb().prepare('DELETE FROM User WHERE UserID = ?').run(userId);
+  }
+
   count(): number {
     const row = getDb().prepare('SELECT COUNT(*) as count FROM User').get() as { count: number };
     return row.count;

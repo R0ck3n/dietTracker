@@ -12,6 +12,10 @@ export const registerSchema = z.object({
   password: z.string().min(6, 'Le mot de passe doit contenir au moins 6 caractères'),
 });
 
+export const confirmPasswordSchema = z.object({
+  password: z.string().min(1, 'Mot de passe requis'),
+});
+
 export const createJournalSchema = z.object({
   date: dateParamSchema,
 });
