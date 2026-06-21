@@ -10,7 +10,7 @@ type AppShellProps = {
 };
 
 export function AppShell({ children, subtitle = 'Suivi nutritionnel personnel' }: AppShellProps) {
-  const { logout } = useAuth();
+  const { user, logout } = useAuth();
   const navigate = useNavigate();
 
   async function handleLogout() {
@@ -23,7 +23,7 @@ export function AppShell({ children, subtitle = 'Suivi nutritionnel personnel' }
       <header className={styles.header}>
         <LogoIcon size={44} />
         <AppTitle size="sm" />
-        <p className={styles.subtitle}>{subtitle}</p>
+        <p className={styles.subtitle}>{user ? `${user.username} · ${subtitle}` : subtitle}</p>
       </header>
 
       <nav className={styles.nav} aria-label="Navigation principale">

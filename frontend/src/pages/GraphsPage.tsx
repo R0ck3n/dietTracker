@@ -1,30 +1,16 @@
-import { useEffect, useState } from 'react';
-import { statsApi } from '../api';
-import type { DailyStat } from '../api/types';
-import { getYearRange, parseDateString, todayString } from '../utils/dates';
 import { AppShell } from '../components/layout/AppShell';
-import { YearSelector } from '../components/layout/DateSelector';
+import { ChartPeriodSelector } from '../components/dashboard/ChartPeriodSelector';
 import { StatsChart } from '../components/dashboard/StatsChart';
+import { useChartStats } from '../hooks/useChartStats';
+import { todayString } from '../utils/dates';
 import styles from './GraphsPage.module.css';
 
 export function GraphsPage() {
-  const currentYear = parseDateString(todayString()).getFullYear();
-  const [year, setYear] = useState(currentYear);
-  const [days, setDays] = useState<DailyStat[]>([]);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    setLoading(true);
-    const range = getYearRange(year);
-    statsApi
-      .getRange(range.from, range.to)
-      .then((stats) => setDays(stats.days))
-      .finally(() => setLoading(false));
-  }, [year]);
+  const { days, loading, period, setPeriod } = useChartStats('30d', todayString());
 
   return (
     <AppShell>
-      <YearSelector year={year} onChange={setYear} />
+      <ChartPeriodSelector value={period} onChange={setPeriod} />
       <div className={styles.chartWrap}>
         {loading ? <p className={styles.status}>Chargement des graphiques...</p> : <StatsChart days={days} />}
       </div>

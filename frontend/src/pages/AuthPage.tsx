@@ -12,7 +12,6 @@ export function AuthPage() {
   const navigate = useNavigate();
   const { pathname } = useLocation();
   const isRegister = pathname === '/register';
-  const registrationClosed = isRegister && hasAccount === true;
 
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
@@ -30,9 +29,6 @@ export function AuthPage() {
     setError(null);
 
     if (isRegister) {
-      if (registrationClosed) {
-        return;
-      }
       if (password.length < 6) {
         setError('Le mot de passe doit contenir au moins 6 caractères');
         return;
@@ -69,19 +65,7 @@ export function AuthPage() {
         <h2 className={styles.title}>{isRegister ? 'Créer un compte' : 'Connexion'}</h2>
 
         {isRegister ? (
-          registrationClosed ? (
-            <p className={styles.modeHint}>
-              Un compte est déjà configuré.{' '}
-              <AuthSwitchLink to="/login" className={styles.inlineLink}>
-                Connectez-vous
-              </AuthSwitchLink>{' '}
-              pour accéder à l&apos;application.
-            </p>
-          ) : (
-            <p className={styles.modeHint}>
-              Configurez votre accès personnel pour commencer le suivi.
-            </p>
-          )
+          <p className={styles.modeHint}>Créez votre accès personnel pour commencer le suivi.</p>
         ) : hasAccount === false ? (
           <p className={styles.modeHint}>
             Aucun compte configuré.{' '}
@@ -102,7 +86,6 @@ export function AuthPage() {
               placeholder="nom d'utilisateur"
               autoComplete="username"
               required
-              disabled={registrationClosed}
             />
           </div>
         </label>
@@ -119,14 +102,12 @@ export function AuthPage() {
               autoComplete={isRegister ? 'new-password' : 'current-password'}
               minLength={isRegister ? 6 : 1}
               required
-              disabled={registrationClosed}
             />
             <button
               type="button"
               className={styles.eyeBtn}
               onClick={() => setShowPassword((value) => !value)}
               aria-label={showPassword ? 'Masquer le mot de passe' : 'Afficher le mot de passe'}
-              disabled={registrationClosed}
             >
               <EyeIcon size={16} />
             </button>
@@ -147,7 +128,6 @@ export function AuthPage() {
                   autoComplete="new-password"
                   minLength={6}
                   required
-                  disabled={registrationClosed}
                 />
               </div>
             </label>
@@ -161,7 +141,7 @@ export function AuthPage() {
           type="submit"
           fullWidth
           icon={<LoginIcon size={16} />}
-          disabled={loading || authLoading || registrationClosed}
+          disabled={loading || authLoading}
         >
           {loading
             ? isRegister

@@ -17,7 +17,7 @@ type SidebarProps = {
 };
 
 export function Sidebar({ day }: SidebarProps) {
-  const { logout } = useAuth();
+  const { user, logout } = useAuth();
   const navigate = useNavigate();
 
   async function handleLogout() {
@@ -27,6 +27,7 @@ export function Sidebar({ day }: SidebarProps) {
 
   return (
     <aside className={styles.sidebar}>
+      {user ? <p className={styles.userName}>{user.username}</p> : null}
       <button type="button" className={styles.logoutBtn} onClick={() => void handleLogout()}>
         <LogoutIcon size={24} />
         <span>Déconnexion</span>

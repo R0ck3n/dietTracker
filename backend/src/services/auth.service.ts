@@ -40,18 +40,6 @@ export class AuthService {
   }
 
   async register(username: string, password: string): Promise<{ userId: number; username: string }> {
-    if (this.users.count() > 0) {
-      throw new AppError(
-        'Un compte existe déjà. Utilisez la connexion ou supprimez la base pour réinitialiser.',
-        409,
-        'USER_EXISTS',
-      );
-    }
-
-    if (password.length < 6) {
-      throw new AppError('Le mot de passe doit contenir au moins 6 caractères.', 400, 'WEAK_PASSWORD');
-    }
-
     return this.createUser(username, password);
   }
 

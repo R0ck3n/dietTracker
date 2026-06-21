@@ -1,7 +1,6 @@
 import argon2 from 'argon2';
-import { initDatabase, closeDatabase, getDb } from '../db/connection.js';
+import { initDatabase, closeDatabase } from '../db/connection.js';
 import { UserRepository } from '../repositories/user.repository.js';
-import type { UserRow } from '../types/index.js';
 
 async function main(): Promise<void> {
   const username = process.argv[2] ?? 'nico';
@@ -17,26 +16,14 @@ async function main(): Promise<void> {
 
   const existing = users.findByUsername(username);
   if (existing) {
-    getDb()
-      .prepare('UPDATE User SET PasswordHash = ? WHERE UserID = ?')
-      .run(passwordHash, existing.UserID);
+    users.updatePassword(existing.UserID, passwordHash);
     console.log(`Mot de passe mis à jour : ${username} (id=${existing.UserID})`);
     closeDatabase();
     return;
   }
 
-  if (users.count() === 0) {
-    const user = users.create(username, passwordHash);
-    console.log(`Utilisateur créé : ${user.Username} (id=${user.UserID})`);
-    closeDatabase();
-    return;
-  }
-
-  const current = getDb().prepare('SELECT * FROM User LIMIT 1').get() as UserRow;
-  getDb()
-    .prepare('UPDATE User SET Username = ?, PasswordHash = ? WHERE UserID = ?')
-    .run(username, passwordHash, current.UserID);
-  console.log(`Utilisateur mis à jour : ${username} (id=${current.UserID})`);
+  const user = users.create(username, passwordHash);
+  console.log(`Utilisateur créé : ${user.Username} (id=${user.UserID})`);
 
   closeDatabase();
 }

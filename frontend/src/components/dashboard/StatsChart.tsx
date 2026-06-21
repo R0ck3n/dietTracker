@@ -19,7 +19,7 @@ type StatsChartProps = {
   compact?: boolean;
 };
 
-const chartOptions = {
+const chartOptions = (dayCount: number, compact: boolean) => ({
   responsive: true,
   maintainAspectRatio: false,
   animation: false as const,
@@ -30,7 +30,10 @@ const chartOptions = {
   },
   scales: {
     x: {
-      ticks: { color: '#848b95' },
+      ticks: {
+        color: '#848b95',
+        maxTicksLimit: compact ? 5 : dayCount > 90 ? 10 : dayCount > 30 ? 8 : undefined,
+      },
       grid: { color: 'rgba(66, 66, 66, 0.5)' },
     },
     y: {
@@ -44,7 +47,7 @@ const chartOptions = {
       grid: { drawOnChartArea: false },
     },
   },
-};
+});
 
 export const StatsChart = memo(function StatsChart({ days, compact = false }: StatsChartProps) {
   const labels = useMemo(
@@ -88,10 +91,12 @@ export const StatsChart = memo(function StatsChart({ days, compact = false }: St
     [days, labels],
   );
 
+  const options = useMemo(() => chartOptions(days.length, compact), [days.length, compact]);
+
   return (
     <div className={`${styles.chartCard} ${compact ? styles.compact : ''}`}>
       <div className={styles.canvasWrap}>
-        <Line data={data} options={chartOptions} />
+        <Line data={data} options={options} />
       </div>
     </div>
   );

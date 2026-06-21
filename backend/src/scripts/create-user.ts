@@ -21,7 +21,7 @@ async function main(): Promise<void> {
     throw new Error('Identifiant et mot de passe requis.');
   }
 
-    const user = await authService.register(username, password);
+    const user = await authService.createUser(username, password);
   console.log(`Utilisateur créé : ${user.username} (id=${user.userId})`);
 
   closeDatabase();

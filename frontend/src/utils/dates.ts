@@ -55,6 +55,51 @@ export function getYearRange(year: number): { from: string; to: string } {
   };
 }
 
+export type ChartPeriodPreset = '7d' | '30d' | 'month' | '3m' | '6m' | '1y' | 'custom';
+
+export function getPresetRange(
+  preset: Exclude<ChartPeriodPreset, 'custom'>,
+  endDate: string = todayString(),
+): { from: string; to: string } {
+  const end = parseDateString(endDate);
+
+  if (preset === 'month') {
+    return getMonthRange(end.getFullYear(), end.getMonth());
+  }
+
+  const start = new Date(end);
+
+  switch (preset) {
+    case '7d':
+      start.setDate(start.getDate() - 6);
+      break;
+    case '30d':
+      start.setDate(start.getDate() - 29);
+      break;
+    case '3m':
+      start.setMonth(start.getMonth() - 3);
+      start.setDate(start.getDate() + 1);
+      break;
+    case '6m':
+      start.setMonth(start.getMonth() - 6);
+      start.setDate(start.getDate() + 1);
+      break;
+    case '1y':
+      start.setFullYear(start.getFullYear() - 1);
+      start.setDate(start.getDate() + 1);
+      break;
+  }
+
+  return { from: toDateString(start), to: toDateString(end) };
+}
+
+export function clampDateRange(from: string, to: string): { from: string; to: string } {
+  if (from <= to) {
+    return { from, to };
+  }
+  return { from: to, to: from };
+}
+
 export function dateToIsoTime(date: string, hours: number, minutes: number): string {
   const base = parseDateString(date);
   base.setHours(hours, minutes, 0, 0);

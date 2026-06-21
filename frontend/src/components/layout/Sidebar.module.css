@@ -29,6 +29,13 @@
     padding: 8px 0 16px;
   }
 
+  .userName {
+    margin: 0;
+    color: var(--color-green);
+    font-size: 18px;
+    font-weight: 700;
+  }
+
   .recap {
     display: flex;
     align-items: center;

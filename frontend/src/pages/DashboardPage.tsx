@@ -1,9 +1,9 @@
-import { useCallback, useEffect, useState } from 'react';
-import type { DailyStat, JournalDay } from '../api/types';
-import { statsApi } from '../api';
+import { useCallback, useState } from 'react';
+import type { JournalDay } from '../api/types';
 import { useJournal } from '../hooks/useJournal';
+import { useChartStats } from '../hooks/useChartStats';
 import { useMediaQuery } from '../hooks/useMediaQuery';
-import { getMonthRange, parseDateString, todayString } from '../utils/dates';
+import { todayString } from '../utils/dates';
 import { AppShell } from '../components/layout/AppShell';
 import { DateSelector } from '../components/layout/DateSelector';
 import { Sidebar } from '../components/layout/Sidebar';
@@ -14,6 +14,7 @@ import { HydrationSection } from '../components/dashboard/HydrationSection';
 import { SleepSection } from '../components/dashboard/SleepSection';
 import { WeightSection } from '../components/dashboard/WeightSection';
 import { NotesSection } from '../components/dashboard/NotesSection';
+import { ChartPeriodSelector } from '../components/dashboard/ChartPeriodSelector';
 import { StatsChart } from '../components/dashboard/StatsChart';
 import { AppTitle } from '../components/layout/AppTitle';
 import { LogoIcon } from '../components/icons/Icons';
@@ -43,14 +44,8 @@ function DashboardSections({
 export function DashboardPage() {
   const [date, setDate] = useState(todayString());
   const { day, loading, error, mutate } = useJournal(date);
-  const [chartDays, setChartDays] = useState<DailyStat[]>([]);
+  const { days: chartDays, period, setPeriod } = useChartStats('month', date);
   const isDesktop = useMediaQuery('(min-width: 1024px)');
-
-  useEffect(() => {
-    const parsed = parseDateString(date);
-    const range = getMonthRange(parsed.getFullYear(), parsed.getMonth());
-    statsApi.getRange(range.from, range.to).then((stats) => setChartDays(stats.days));
-  }, [date]);
 
   const update = useCallback(
     (next: JournalDay) => {
@@ -107,6 +102,7 @@ export function DashboardPage() {
                   <SportSection date={date} day={day} onUpdate={update} layout="stretch" />
                 </div>
                 <div className={styles.chartArea}>
+                  <ChartPeriodSelector value={period} endDate={date} onChange={setPeriod} compact />
                   <StatsChart days={chartDays} compact />
                 </div>
                 <div className={styles.rightStack}>

@@ -1,0 +1,74 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.compact {
+  margin-bottom: 8px;
+  gap: 8px;
+}
+
+.presets {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.preset {
+  border: 1px solid var(--color-border);
+  background: var(--color-green-10);
+  color: var(--color-grey);
+  border-radius: var(--radius-sm);
+  padding: 6px 12px;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.preset.active {
+  border-color: var(--color-green);
+  color: var(--color-green);
+}
+
+.customRange {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.dateField {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-size: 12px;
+  color: var(--color-grey);
+}
+
+.dateField input {
+  border: 1px solid var(--color-border);
+  background: var(--color-green-10);
+  color: var(--color-white);
+  border-radius: var(--radius-sm);
+  padding: 8px 10px;
+  min-width: 0;
+}
+
+.dateField input::-webkit-calendar-picker-indicator {
+  filter: invert(0.7);
+}
+
+@media (max-width: 1023px) {
+  .preset {
+    font-size: 12px;
+    padding: 6px 10px;
+  }
+
+  .dateField {
+    flex: 1 1 140px;
+  }
+
+  .dateField input {
+    width: 100%;
+  }
+}
