@@ -1,18 +1,18 @@
 # Diet Tracker
 
-Application web personnelle de suivi quotidien, installable en **Progressive Web App (PWA)**, permettant de suivre :
+Application web personnelle de suivi quotidien, installable en **Progressive Web App (PWA)**.
+
+Elle permet de noter au fil des jours :
 
 - le poids
-- l'alimentation
+- l'alimentation et les calories consommées
 - le sport et les calories dépensées
 - l'hydratation
 - le sommeil
 - les notes journalières
-- l'évolution des données dans le temps
+- l'évolution de ces données dans le temps (graphiques)
 
-L'application est conçue pour être utilisée principalement sur mobile tout en restant parfaitement utilisable sur desktop.
-
-> Projet à usage personnel — accès via réseau privé via Tailscale.
+Conçue **mobile-first**, elle reste pleinement utilisable sur desktop. Usage privé via réseau Tailscale (pas d'exposition Internet publique).
 
 ---
 
@@ -20,135 +20,147 @@ L'application est conçue pour être utilisée principalement sur mobile tout en
 
 ### Poids
 
-- Une mesure de poids par jour
-- Historique consultable
-- Visualisation graphique de l'évolution
+- Une mesure par jour
+- Historique et courbe d'évolution
 
 ### Alimentation
 
-Saisie des aliments consommés dans la journée :
+Saisie des aliments de la journée :
 
-- Nom de l'aliment
-- Quantité (grammes)
-- Calories pour 100 g
+- Nom
+- Quantité (grammes ou millilitres)
+- Calories pour 100 g / 100 ml
 
-Calcul automatique :
+Calcul automatique des calories de chaque ligne et du total journalier :
 
 ```txt
-Calories = (Poids × Calories/100g) / 100
+Calories = (Quantité × Calories/100) / 100
 ```
-
-Calcul automatique des calories totales de la journée.
 
 ### Sport
 
-Saisie des activités physiques réalisées dans la journée :
+Plusieurs activités par jour :
 
-- Nom de l'activité
-- Durée (minutes)
-- Calories dépensées
-
-Fonctionnalités :
-
-- Ajouter / modifier / supprimer une activité
-- Plusieurs activités par jour
-- Calcul automatique du total des calories dépensées
+- Nom, durée (minutes), calories dépensées
+- Ajout / modification / suppression
+- Total des calories dépensées calculé automatiquement
 
 ### Hydratation
 
 - Volume consommé (litres et centilitres)
-- Une seule saisie par jour
+- Une saisie par jour
 
 ### Sommeil
 
-- Heure de coucher
-- Heure de réveil
-- Commentaire optionnel
-
-Gestion des interruptions :
-
-- Heure de début
-- Heure de fin
-- Commentaire optionnel
-
-Calcul automatique :
-
-- Temps au lit
-- Temps d'interruption
-- Sommeil net
+- Heure de coucher / réveil, commentaire optionnel
+- Interruptions (début, fin, commentaire) — modèle et API prêts ; UI d'interruptions non exposée
+- Calculs : temps au lit, interruptions, sommeil net
 
 ### Notes du jour
 
-Champ libre permettant de consigner :
-
-- ressenti
-- énergie
-- remarques diverses
+Champ libre (ressenti, énergie, remarques).
 
 ### Statistiques
 
-Graphiques réalisés avec Chart.js :
+Graphiques Chart.js (page `/graphiques` + widget desktop sur le dashboard) :
 
-- évolution du poids
-- calories consommées (alimentation)
-- durée de sommeil
-- **choix de période** : 7 j, 30 j, mois, 3 m, 6 m, 1 an, ou plage personnalisée (début / fin)
+- poids, calories alimentation, durée de sommeil
+- périodes : 7 j, 30 j, mois, 3 m, 6 m, 1 an, ou plage personnalisée
 
-### Progressive Web App (PWA)
+### Authentification multi-comptes
 
-- Installation sur écran d'accueil
-- Plein écran
-- Icône dédiée
-- Expérience proche d'une application native
-
-### Authentification
-
-- **Plusieurs comptes** — chaque utilisateur a ses propres données (isolées par `UserID` en base)
-- Inscription ouverte via `/register` ou script CLI
-- Login local, mot de passe hashé (Argon2)
-- Session sécurisée par cookie
+- Plusieurs utilisateurs, données isolées par `UserID`
+- Inscription ouverte (`/register`) ou création via CLI
+- Mot de passe hashé (Argon2), session cookie
 - Suppression des données ou du compte (confirmation par mot de passe)
+
+### PWA
+
+- Installation sur l'écran d'accueil, plein écran, icône dédiée
 
 ---
 
 ## Stack technique
 
 | Couche | Technologie |
-|----------|----------|
-| Frontend | React 19 (SPA) + TypeScript |
-| Backend | Node.js + Fastify 5 |
-| Base de données | SQLite (better-sqlite3) |
-| Graphiques | Chart.js |
-| PWA | Vite PWA Plugin |
-| Déploiement prod | Caddy + scripts PowerShell (`deploy/`) |
+|--------|-------------|
+| Frontend | React 19, TypeScript, Vite, react-router-dom, Chart.js, vite-plugin-pwa |
+| Backend | Node.js, Fastify 5, Zod, Argon2, @fastify/session |
+| Base de données | SQLite (`better-sqlite3`) |
+| Styles | CSS Modules + design tokens |
+| Prod | Caddy + scripts PowerShell (`deploy/`) |
 | Réseau | Tailscale |
+
+---
+
+## Structure du dépôt
+
+```txt
+.
+├── frontend/          # SPA React (Vite) — :5173 en dev
+├── backend/           # API Fastify — :3000 en dev
+├── data/              # Base SQLite (diettracker.db, créée au démarrage)
+├── deploy/            # Scripts prod Windows (Caddy, install, boot)
+├── diettracker.sql    # Schéma SQL de référence
+├── bdd_scheme.jpg     # Diagramme du modèle de données
+└── ai/app.md          # Contexte technique pour l'agent IA
+```
+
+### Backend (`backend/src/`)
+
+```txt
+routes/ → services/ → repositories/ → SQLite
+```
+
+Séparation stricte : validation Zod dans les routes/schémas, logique métier dans les services, SQL dans les repositories.
+
+### Frontend (`frontend/src/`)
+
+- `pages/` — Login/Register, Dashboard, Graphiques
+- `components/` — dashboard, layout, UI, auth
+- `hooks/` — journal du jour, stats graphiques, media query
+- `api/` — client HTTP (cookies session) + types
+- `context/` — authentification
+
+Breakpoint desktop : **1024px** (layouts mobile et desktop montés séparément).
 
 ---
 
 ## Démarrage rapide (développement)
 
+Prérequis : Node.js (LTS recommandé).
+
 ```bash
-# Backend (:3000)
+# Terminal 1 — Backend (:3000)
 cd backend
-cp .env.example .env   # si absent
+cp .env.example .env   # si besoin
 npm install
 npm run dev
 
-# Frontend (:5173, proxy /api → backend)
+# Terminal 2 — Frontend (:5173, proxy /api → backend)
 cd frontend
-cp .env.example .env     # si absent
+cp .env.example .env   # si besoin
 npm install
 npm run dev
 ```
 
-Créer un utilisateur en CLI :
+Ouvrir `http://localhost:5173`.
+
+### Utilisateurs (CLI)
 
 ```bash
 cd backend
-npm run user:create -- monidentifiant monmotdepasse
+npm run user:create -- monidentifiant monmotdepasse   # créer
+npm run user:set -- monidentifiant monmotdepasse      # créer ou maj mot de passe
+npm run db:init                                       # (ré)initialiser le schéma
 ```
 
-> Si `better-sqlite3` plante après un changement de version Node : `npm rebuild better-sqlite3`
+Inscription aussi disponible dans l'UI via `/register`.
+
+> Si `better-sqlite3` échoue après un changement de version Node :  
+> `cd backend && npm rebuild better-sqlite3`
+
+Base SQLite par défaut : `data/diettracker.db` (chemin configurable via `DATABASE_PATH` dans `backend/.env`).
 
 ---
 
@@ -157,265 +169,151 @@ npm run user:create -- monidentifiant monmotdepasse
 ```txt
 ┌────────────────────────────┐
 │ React SPA + PWA            │
-│ Dashboard + Login          │
+│ Dashboard / Graphiques     │
+│ Login · Register           │
 └──────────────┬─────────────┘
-               │ REST API
+               │ REST /api/*
                ▼
 ┌────────────────────────────┐
-│ Fastify API                │
-│ Routes                     │
-│ Services                   │
-│ Repositories               │
+│ Fastify                    │
+│ Routes · Services · Repos  │
 └──────────────┬─────────────┘
-               │
                ▼
 ┌────────────────────────────┐
 │ SQLite                     │
 └────────────────────────────┘
 ```
 
-### Principes backend
-
-- Séparation stricte routes / services / repositories
-- Logique métier dans les services
-- API REST stateless
-- Validation stricte des entrées
-- Architecture modulaire
-
 ---
 
 ## Modèle de données
 
-### Journal quotidien
+Schéma source : [`diettracker.sql`](diettracker.sql) · aperçu : [`bdd_scheme.jpg`](bdd_scheme.jpg).
 
-Une entrée par utilisateur et par jour.
+| Table | Rôle |
+|-------|------|
+| `User` | Comptes (username + hash Argon2) |
+| `Journal` | Une ligne par utilisateur et par jour (poids, hydratation, notes) |
+| `FoodEntry` | Aliments liés à un journal (`Unit` : `g` \| `ml`) |
+| `SportActivity` | Activités liées à un journal |
+| `Sleep` | Une entrée sommeil par journal |
+| `SleepInterruption` | Interruptions liées au sommeil |
 
-Contient :
-
-- date
-- poids
-- hydratation
-- notes
-
-### Aliments
-
-Chaque aliment est directement rattaché à une journée :
-
-| Champ |
-|---------|
-| foodName |
-| weightGrams |
-| caloriesPer100g |
-
-### Activités sportives
-
-Chaque activité est directement rattachée à une journée :
-
-| Champ |
-|---------|
-| activityName |
-| durationMinutes |
-| caloriesBurned |
-
-### Sommeil
-
-| Champ |
-|---------|
-| bedTime |
-| wakeTime |
-| comment |
-
-### Interruptions de sommeil
-
-| Champ |
-|---------|
-| startTime |
-| endTime |
-| comment |
+Les suppressions cascade depuis `User` / `Journal` / `Sleep`.
 
 ---
 
 ## API REST
 
-### Journal
-
-| Méthode | Endpoint |
-|----------|----------|
-| GET | `/journal/:date` |
-| POST | `/journal` |
-| PUT | `/journal/:date` |
-
-### Poids
-
-| Méthode | Endpoint |
-|----------|----------|
-| PATCH | `/journal/:date/weight` |
-
-### Alimentation
-
-| Méthode | Endpoint |
-|----------|----------|
-| POST | `/journal/:date/foods` |
-| PUT | `/foods/:id` |
-| DELETE | `/foods/:id` |
-
-### Sport
-
-| Méthode | Endpoint |
-|----------|----------|
-| POST | `/journal/:date/activities` |
-| PUT | `/activities/:id` |
-| DELETE | `/activities/:id` |
-
-### Hydratation
-
-| Méthode | Endpoint |
-|----------|----------|
-| PATCH | `/journal/:date/hydration` |
-
-### Sommeil
-
-| Méthode | Endpoint |
-|----------|----------|
-| POST | `/journal/:date/sleep` |
-| PUT | `/sleep/:id` |
-
-### Statistiques
-
-| Méthode | Endpoint |
-|----------|----------|
-| GET | `/stats?from=YYYY-MM-DD&to=YYYY-MM-DD` |
+Préfixe côté frontend : `/api` (proxy Vite ou Caddy). Toutes les routes métier exigent une session authentifiée.
 
 ### Authentification
 
+| Méthode | Endpoint | Description |
+|---------|----------|-------------|
+| POST | `/auth/login` | Connexion |
+| POST | `/auth/register` | Inscription |
+| GET | `/auth/status` | `{ hasUser }` |
+| GET | `/auth/me` | Utilisateur courant |
+| POST | `/auth/logout` | Déconnexion |
+| DELETE | `/auth/data` | Efface les données du compte (`{ password }`) |
+| DELETE | `/auth/account` | Supprime le compte (`{ password }`) |
+
+### Journal & saisie
+
 | Méthode | Endpoint |
-|----------|----------|
-| POST | `/auth/login` |
-| POST | `/auth/register` |
-| GET | `/auth/status` |
-| GET | `/auth/me` |
-| POST | `/auth/logout` |
-| DELETE | `/auth/data` | Supprime toutes les données du user connecté (body : `{ password }`) |
-| DELETE | `/auth/account` | Supprime le compte et les données (body : `{ password }`) |
+|---------|----------|
+| GET | `/journal/:date` |
+| PUT | `/journal/:date` |
+| PATCH | `/journal/:date/weight` |
+| PATCH | `/journal/:date/hydration` |
+| POST | `/journal/:date/foods` |
+| PUT / DELETE | `/foods/:id` |
+| POST | `/journal/:date/activities` |
+| PUT / DELETE | `/activities/:id` |
+| POST | `/journal/:date/sleep` |
+| PUT | `/sleep/:id` |
+| GET | `/stats?from=YYYY-MM-DD&to=YYYY-MM-DD` |
 
 ---
 
-## Interface utilisateur
+## Interface
 
-### Login
+### Routes
 
-- Authentification locale
-- Session sécurisée
+| Route | Accès |
+|-------|--------|
+| `/login`, `/register` | public |
+| `/` (dashboard) | authentifié |
+| `/graphiques` | authentifié |
 
-### Dashboard journalier
+### Dashboard
 
-Navigation rapide :
+Navigation jour : précédent · aujourd'hui · suivant.
 
-```txt
-< Jour précédent | Aujourd'hui | Jour suivant >
-```
+Objectif : saisir une journée complète en moins d'une minute.
 
-Sections :
+- **Mobile** : résumé + sections empilées + nav bas (Accueil, Graphiques, Déconnexion)
+- **Desktop** : sidebar (user + récap) + grille (poids / alim / sport, graphiques, hydratation / sommeil / notes)
 
-- Résumé du jour (poids, alimentation, sport, sommeil, hydratation)
-- Alimentation
-- Sport
-- Hydratation
-- Sommeil
-- Poids
-- Notes du jour
-- Graphiques (page `/graphiques` + widget desktop dans le dashboard)
-- Liens compte en haut à droite : supprimer mes données / supprimer mon compte
-
-Objectif principal :
-
-> Saisir une journée complète en moins d'une minute.
-
----
-
-## PWA
-
-### Obligatoire
-
-- Manifest configuré
-- Service Worker
-- Installation sur écran d'accueil
-- Mode plein écran
-
-### Évolutions futures
-
-- Mode hors ligne
-- Synchronisation différée
-- Notifications de rappel
-
----
-
-## Graphiques
-
-Page `/graphiques` (mobile) et zone graphique du dashboard (desktop).
-
-### Période affichée
-
-Préréglages : **7 j · 30 j · Mois · 3 m · 6 m · 1 an · Perso** (dates début/fin).
-
-### Courbes
-
-- Poids (axe gauche)
-- Calories alimentation (axe droit)
-- Sommeil net en heures (axe droit)
+Actions compte (haut droite) : supprimer mes données / supprimer mon compte.
 
 ---
 
 ## Déploiement production
 
-Scripts dans `deploy/` (Windows, mini PC) :
+Scripts Windows dans `deploy/` (cible typique : mini PC derrière Tailscale) :
 
-- `install.ps1` — installation initiale (npm ci, .env, build)
-- `start.ps1` / `stop.ps1` — démarrage / arrêt (backend + Caddy)
-- `register-startup.ps1` — lancement au boot Windows
-- `Caddyfile` — reverse proxy (frontend statique + API)
+| Script | Rôle |
+|--------|------|
+| `install.ps1` | Installation (npm ci, `.env`, build) |
+| `start.ps1` / `stop.ps1` | Démarrage / arrêt (backend + Caddy) |
+| `register-startup.ps1` | Lancement au boot Windows |
+| `Caddyfile` | Reverse proxy : frontend statique + `/api` → `:3000` |
 
-Voir `deploy/backend.env.example` et `deploy/frontend.env.production` pour la config prod.
+Exemples de config : `deploy/backend.env.example`, `deploy/frontend.env.production`.
+
+URL typique : `http://<ip-tailscale>:8080`.
 
 ---
 
 ## Sécurité
 
-- Mot de passe hashé (Argon2 recommandé)
-- Session via cookie sécurisé
-- Validation serveur systématique
-- Accès limité au réseau Tailscale
-- Aucun accès public Internet
+- Mots de passe hashés avec Argon2
+- Session cookie `httpOnly` (7 jours, `sameSite: lax`)
+- Validation serveur systématique (Zod)
+- Accès limité au réseau privé (Tailscale) — pas d'accès public Internet
 
 ---
 
-## Philosophie du projet
+## Philosophie
 
-- Simplicité maximale
-- Mobile-first
-- Rapide à utiliser
-- Facile à maintenir
-- Sans sur-ingénierie
+- Simplicité maximale, mobile-first
+- Rapide à utiliser au quotidien
+- Architecture claire, sans sur-ingénierie
 
 ---
 
 ## Évolutions envisagées
 
-- Notifications PWA
-- Export CSV
-- Export JSON
-- Analyse automatique des tendances
+- Mode hors ligne / sync différée
+- Notifications PWA de rappel
+- Export CSV / JSON
+- UI des interruptions de sommeil
+- Analyse / corrélations de tendances
 
 ---
 
-## Documentation
+## Documentation complémentaire
 
-Les spécifications détaillées sont disponibles dans :
-
-`specifications.md`
+| Fichier | Contenu |
+|---------|---------|
+| [`ai/app.md`](ai/app.md) | Guide technique détaillé (routes, composants, pièges connus) pour reprise IA |
+| [`diettracker.sql`](diettracker.sql) | Schéma SQLite |
+| [`deploy/`](deploy/) | Procédure et config de production |
 
 ---
 
-## Statut du projet
+## Statut
 
-✅ Fonctionnel — usage personnel (Tailscale). Développement terminé (juin 2026).
+Fonctionnel — usage personnel (Tailscale). Développement principal terminé (juin 2026).
